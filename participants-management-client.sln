@@ -3,24 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "scan-application", ".", "{BD1F00EA-0673-497C-9668-4AEBDCDD3ADA}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "participants-management-client", ".", "{B5E33148-D8F4-445B-BD7A-01BC8C3478C5}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_56988"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\GitRepository\coderdojo-linz-administration\scan-application\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56988\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_59298"
+		Debug.AspNetCompiler.PhysicalPath = "..\participants-management-client\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59298\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_56988"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\GitRepository\coderdojo-linz-administration\scan-application\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_56988\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_59298"
+		Release.AspNetCompiler.PhysicalPath = "..\participants-management-client\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_59298\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "56988"
+		VWDPort = "59298"
+		SlnRelativePath = "..\participants-management-client\"
 	EndProjectSection
 EndProject
 Global
@@ -28,8 +29,8 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD1F00EA-0673-497C-9668-4AEBDCDD3ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD1F00EA-0673-497C-9668-4AEBDCDD3ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E33148-D8F4-445B-BD7A-01BC8C3478C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E33148-D8F4-445B-BD7A-01BC8C3478C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
