@@ -1,21 +1,24 @@
-﻿
+﻿<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CoderDojo Linz</a>
+        </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>CoderDojo App</h1>
-            <nav>
-                <a [routerLink]="['Scan']">Scan Badge</a>
-                <a [routerLink]="['SetPin']">Set Pin</a>
-                <a [routerLink]="['Import']">Import</a>
-            </nav>
-        </div>
-        <div class="col-sm-12">
-            <h2>Manage participants</h2>
-        </div>
-        <div class="col-sm-12">
-            <router-outlet></router-outlet>
-            <footer>Footer</footer>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a [routerLink]="['Scan']">Scan Badge</a></li>
+                <li class="active"><a [routerLink]="['SetPin']">Set Pin</a></li>
+                <li class="active"><a [routerLink]="['Import']">Import Coders</a></li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
+
+<router-outlet></router-outlet>

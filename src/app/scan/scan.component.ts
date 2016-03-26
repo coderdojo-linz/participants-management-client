@@ -1,7 +1,7 @@
 ﻿import {Component} from "angular2/core";
 
 @Component({
-    template: "<p>Scan Component</p>",
+    template: require("./scan.component.html"),
 })
 export class ScanComponent {
 }
