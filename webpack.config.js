@@ -1,4 +1,4 @@
-﻿var webpack = require("webpack")    
+﻿var webpack = require("webpack")
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     output: {
         path: "./dist",
         filename: "scripts/[name].bundle.js",
-        sourceMapFilename: "[name].map"
+        sourceMapFilename: "[name].map",
     },
     resolve: {
         extensions: ["", ".js", ".ts"]
@@ -19,11 +19,17 @@ module.exports = {
             { test: /\.ts/, loaders: ["ts-loader"], exclude: /node_modules/ },
             { test: /\.scss$/, exclude: /node_modules/, loaders: ["raw-loader", "sass-loader", "resolve-url"] },
             { test: /\.html$/, loader: "raw-loader", exclude: ["src/index.html"] },
-            { test: /\.css$/, loader: "style!css" }
+            { test: /\.css$/, loader: "style!css" },
+            { test: /bootstrap\/js\//, loader: "imports?jQuery=jquery" },
+            { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000" }, 
+            { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: "file" },
+            { test: /bootstrap-sass\/assets\/javascripts\//, loader: "imports?jQuery=jquery" },
+            { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html" }),
-        new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor"] })
+        new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor"] }),
+        new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" })
     ]
 };

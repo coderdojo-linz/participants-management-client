@@ -1,9 +1,21 @@
-﻿<h1>CoderDojo App</h1>
-<nav>
-    <a [routerLink]="['Scan']">Scan Badge</a>
-    <a [routerLink]="['SetPin']">Set Pin</a>
-    <a [routerLink]="['Import']">Import</a>
-</nav>
-Manage participants
-<router-outlet></router-outlet>
-<footer>Footer</footer>
+﻿
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>CoderDojo App</h1>
+            <nav>
+                <a [routerLink]="['Scan']">Scan Badge</a>
+                <a [routerLink]="['SetPin']">Set Pin</a>
+                <a [routerLink]="['Import']">Import</a>
+            </nav>
+        </div>
+        <div class="col-sm-12">
+            <h2>Manage participants</h2>
+        </div>
+        <div class="col-sm-12">
+            <router-outlet></router-outlet>
+            <footer>Footer</footer>
+        </div>
+    </div>
+</div>
