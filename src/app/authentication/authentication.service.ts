@@ -8,27 +8,33 @@ export class AuthenticationService {
 	private scriptLoaded: boolean = false;
 	private auth2: gapi.auth2.GoogleAuth;
 	private googleUser: gapi.auth2.GoogleUser;
-	private userId: string;
-	private userScopes: string;
-	private authResponse: gapi.auth2.AuthResponse;
 	private signedIn: boolean = false;
+	private promiseResolve: any;
 
 	constructor() {
-		this.token = localStorage.getItem("token");
+		// TODO: check if token in local storage is valid
 	}
 
 	public login() {
 		var that = this;
-		that.loadScript().then((scriptLoaded) => {
-			if (scriptLoaded) {
-				window.setTimeout(() => {
-					var gapi = (<any>window).gapi;
-					if (gapi) {
-						gapi.load("auth2", () => that.initAuth2());
-					}
-				}, 200);
-			}
+		var promise = new Promise((resolve, reject) => {
+			that.promiseResolve = resolve;
+			that.loadScript().then((scriptLoaded) => {
+				if (scriptLoaded) {
+					that.executeScript();
+				} else {
+					reject();
+				}
+			}).catch(() => {
+				reject();
+			});
 		});
+
+		return promise;
+	}
+
+	public getToken() {
+		return localStorage.getItem("gapi_token");
 	}
 
 	private loadScript(): Promise<boolean> {
@@ -50,6 +56,19 @@ export class AuthenticationService {
 		});
 	}
 
+	private executeScript() {
+		var that = this;
+		window.setTimeout(() => {
+			var gapi = (<any>window).gapi;
+			if (gapi) {
+				gapi.load("auth2", () => that.initAuth2());
+			} else {
+				console.log("retry execute script");
+				that.executeScript();
+			}
+		}, 50);
+	}
+
 	private initAuth2() {
 		var that = this;
 		that.auth2 = gapi.auth2.init({
@@ -57,61 +76,44 @@ export class AuthenticationService {
 			scope: that.scopes
 		});
 
-		// Listen for sign-in state changes.
-		that.auth2.isSignedIn.listen(() => that.signinChanged);
-
-		// Listen for changes to current user.
-		that.auth2.currentUser.listen(() => that.userChanged);
-
-		that.auth2.attachClickHandler(
-			document.getElementById("loginButton"),
-			{},
-			() => that.updateGoogleUser(),
-			(error) => alert("error: " + error));
-
 		// Sign in the user if they are currently signed in.
-		if (that.auth2.isSignedIn.get() == true) {
+		if (that.auth2.isSignedIn.get()) {
 			that.auth2.signIn();
-		}
+			that.updateUser();
+		} else {
+			var origin = location.protocol + "//" + location.hostname;
+			if (location.port != "" || (location.port != "443" && location.protocol == "https")) {
+				origin = origin + ":" + location.port;
+			}
 
-		// Start with the current live values.
-		that.refreshValues();
+			var authWindow = window.open("https://accounts.google.com/o/oauth2/auth?scope=" + encodeURI(that.scopes) + "&redirect_uri=postmessage&response_type=code&client_id=" + that.clientId + "&access_type=offline&approval_prompt=force&origin=" + origin, null, "width=800, height=600");
+			window.addEventListener("message", (event: any) => {
+				if (event.origin === "https://accounts.google.com" && event.data) {
+					var data = JSON.parse(event.data);
+					if (data.result && data.result.id_token) {
+						that.updateUser();
+					}
+				}
+			});
+		}
 	};
 
-	private signinChanged(signedIn: boolean) {
-		var that = this;
-		that.signedIn = signedIn;
-		that.updateGoogleUser();
-	}
-
-	private userChanged(user: gapi.auth2.GoogleUser) {
-		var that = this;
-		that.googleUser = user;
-		that.updateGoogleUser();
-	}
-
-	private refreshValues() {
+	private updateUser() {
 		var that = this;
 		if (that.auth2) {
-			console.log("Refreshing values...");
 			that.googleUser = this.auth2.currentUser.get();
-			that.updateGoogleUser();
-		}
-	}
 
-	private updateGoogleUser() {
-		var that = this;
-		if (that.googleUser) {
-			that.userId = that.googleUser.getId();
-			that.userScopes = that.googleUser.getGrantedScopes();
-			that.authResponse = that.googleUser.getAuthResponse();
-		} else {
-			that.userId = null;
-			that.userScopes = null;
-			that.authResponse = null
-		}
+			if (that.googleUser) {
+				if (that.googleUser["hg"]) {
+					that.token = that.googleUser["hg"].id_token;
+					localStorage.setItem("gapi_token", that.token);
+					that.promiseResolve();
+				}
+			} else {
+				that.token = null;
+			}
 
-		console.log(JSON.stringify(that.googleUser, undefined, 2));
-		console.log(that.auth2.isSignedIn.get());
+			console.log("is signed in: " + that.auth2.isSignedIn.get());
+		}
 	}
 }

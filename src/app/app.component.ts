@@ -1,6 +1,6 @@
 ﻿require("bootstrap-loader");
 import {Component} from "angular2/core";
-import {RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
+import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
 import {LoginComponent} from "./login/login.component";
 import {ParticipantsComponent} from "./participants/participants.component";
 import {ScanComponent} from "./scan/scan.component";
@@ -17,13 +17,17 @@ import {AuthenticationService} from "./authentication/authentication.service.ts"
 })
 @RouteConfig([
 	{ path: "/login", name: "Login", component: LoginComponent },
-	{ path: "/participants", name: "Participants", component: ParticipantsComponent, useAsDefault: true },
+	{ path: "/participants", name: "Participants", component: ParticipantsComponent },
 	{ path: "/scan", name: "Scan", component: ScanComponent },
 	{ path: "/set-pin", name: "SetPin", component: SetPinComponent },
 	{ path: "/import", name: "Import", component: ImportComponent }
 ])
 export class AppComponent {
-	constructor(private authenticationService: AuthenticationService) {
-		authenticationService.login();
+	constructor(private authenticationService: AuthenticationService, private router: Router) {
+		var that = this;
+
+		authenticationService.login().then(() => {
+			that.router.navigate(["Participants"]);
+		});
 	}
 }
