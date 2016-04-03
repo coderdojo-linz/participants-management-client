@@ -6,12 +6,14 @@ import {ParticipantsComponent} from "./participants/participants.component";
 import {ScanComponent} from "./scan/scan.component";
 import {SetPinComponent} from "./set-pin/set-pin.component";
 import {ImportComponent} from "./import/import.component";
+import {AuthenticationService} from "./authentication/authentication.service.ts";
 
 @Component({
     selector: "coder-dojo-app",
     template: require("./app.component.html"),
 	styles: [require("./app.component.scss")],
-	directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES] 
+	directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES],
+	providers: [AuthenticationService]
 })
 @RouteConfig([
 	{ path: "/login", name: "Login", component: LoginComponent },
@@ -21,4 +23,7 @@ import {ImportComponent} from "./import/import.component";
 	{ path: "/import", name: "Import", component: ImportComponent }
 ])
 export class AppComponent {
+	constructor(private authenticationService: AuthenticationService) {
+		authenticationService.login();
+	}
 }
