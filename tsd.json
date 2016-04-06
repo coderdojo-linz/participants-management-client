@@ -13,6 +13,9 @@
     },
     "gapi/gapi.d.ts": {
       "commit": "d969b903d1fce89a5e43828ec68458b4f852db4d"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "513510a89acc648422c9abb047265116198f99ee"
     }
   }
 }

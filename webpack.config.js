@@ -24,8 +24,10 @@ module.exports = {
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000" }, 
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: "file" },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: "imports?jQuery=jquery" },
-            { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" }
-        ]
+            { test: /scriptcam\.js/, loader: "imports?jQuery=jquery" },
+            { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" },
+            { test: /vendor\/.+\.(jsx|js)$/, loader: "imports?jQuery=jquery" },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html" }),

@@ -1,5 +1,8 @@
-﻿import {Component} from "angular2/core";
+﻿/// <reference path="../../../typings/jquery/jquery.d.ts" />
+import {Component} from "angular2/core";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";
+
+declare var jQuery: JQueryStatic;
 
 @Component({
     template: require("./participants.component.html"),
@@ -8,7 +11,6 @@ import {AuthenticationService} from "./../authentication/authentication.service.
 export class ParticipantsComponent {
 	constructor(private authenticationService: AuthenticationService) {
 		var that = this;
-
-		alert(that.authenticationService.getToken());
+		(<any>jQuery("#webcam")).scriptcam();
 	}
 }
