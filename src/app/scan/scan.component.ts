@@ -11,6 +11,8 @@ import {AuthenticationService} from "./../authentication/authentication.service.
 export class ScanComponent {
 	public id: number;
 	public firstname: string = "";
+	public points: number = 0;
+	public newCheckin: boolean = false;
 
 	private video: any;
 	private canvas: any;
@@ -89,18 +91,19 @@ export class ScanComponent {
 		this._ngZone.run(() => {
 			this.stop();
 			console.log(value);
+			var participantId = this.getParameterByName(value, "id");
+
 			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/56fb9efc316b5fb01e5629ff/checkin/56fb9f24316b5fb01e562a00",
 				"",
 				{ headers: this.authenticationService.getHttpHeaders() }).subscribe(
 				data => {
-					alert(data);
-				},
-				error => console.log(error),
-				() => {
-					alert("done");
-				});
+					var result = data.json();
 
-			this.firstname = this.getParameterByName(value, "id");
+					this.points = 1;
+					this.newCheckin = result.newCheckin;
+					this.firstname = result.givenName;
+				},
+				error => console.log(error));
 		});
 	}
 

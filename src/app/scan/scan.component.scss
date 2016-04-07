@@ -36,7 +36,12 @@ button[hidden] {
     height: 80px;
 }
 
-#welcome-message {
+.alert {
     margin-top: 26px;
     font-size: 30px;
+}
+
+.alert > div {
+    margin-top: 20px;
+    font-size: 20px;
 }

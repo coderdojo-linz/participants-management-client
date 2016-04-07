@@ -13,10 +13,14 @@
             <button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
             <button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>
 
-            <div [hidden]="!firstname" id="welcome-message" class="alert alert-success" role="alert">
-                <p>Willkommen beim CoderDojo Linz, {{firstname}}!</p>
-                <p>Du hast gerade deinen ersten CoderDojo Punkt gesammelt.</p>
+            <div [hidden]="!firstname" class="alert alert-success" role="alert">
+                Willkommen beim CoderDojo, {{firstname}}!
+                <div [hidden]="newCheckin">Du bist heute bereits eingecheckt.</div>
             </div>
+
+            <button [hidden]="!firstname" class="btn btn-primary" type="button">
+                CoderDojo Punkte <span class="badge">{{points}}</span>
+            </button>
         </div>
     </div>
 </div>

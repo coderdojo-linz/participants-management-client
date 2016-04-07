@@ -1,12 +1,10 @@
 ﻿import {Component, Input, OnChanges, SimpleChange} from "angular2/core";
-import {FORM_DIRECTIVES} from "angular2/common";
 import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";
 
 @Component({
     template: require("./participants.component.html"),
-	providers: [HTTP_PROVIDERS, AuthenticationService],
-	directives: [FORM_DIRECTIVES]
+	providers: [HTTP_PROVIDERS, AuthenticationService]
 })
 export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
