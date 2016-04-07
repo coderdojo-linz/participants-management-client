@@ -10,8 +10,13 @@
             <canvas id="qr-canvas"></canvas>
         </div>
         <div class="col-sm-6">
-            <button id="scan-button" class="btn btn-primary btn-lg btn-block" (click)="start()">Scannen</button>
-            <div [hidden]="!firstname" id="welcome-message" class="alert alert-success" role="alert">Willkommen beim CoderDojo Linz, {{firstname}}!</div>
+            <button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
+            <button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>
+
+            <div [hidden]="!firstname" id="welcome-message" class="alert alert-success" role="alert">
+                <p>Willkommen beim CoderDojo Linz, {{firstname}}!</p>
+                <p>Du hast gerade deinen ersten CoderDojo Punkt gesammelt.</p>
+            </div>
         </div>
     </div>
 </div>

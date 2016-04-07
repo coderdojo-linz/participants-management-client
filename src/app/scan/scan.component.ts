@@ -1,9 +1,12 @@
 ﻿require("file?name=camcanvas.swf!./../../../components/jsqrcode-master/src/camcanvas.swf");
 import {Component, NgZone} from "angular2/core";
+import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
+import {AuthenticationService} from "./../authentication/authentication.service.ts";
 
 @Component({
     template: require("./scan.component.html"),
-	styles: [require("./scan.component.scss")]
+	styles: [require("./scan.component.scss")],
+	providers: [HTTP_PROVIDERS, AuthenticationService]
 })
 export class ScanComponent {
 	public id: number;
@@ -16,14 +19,19 @@ export class ScanComponent {
 	private scale: number = 0.5;
 	private width: number;
 	private height: number;
+	private scanRunning: boolean = false;
 
-	constructor(private _ngZone: NgZone) { }
+	constructor(private _ngZone: NgZone, private http: Http, private authenticationService: AuthenticationService) { }
 
 	ngAfterViewInit() {
 		this.canvas = <any>document.getElementById("qr-canvas");
 		(<any>window).qrcode.callback = (value: string) => this.read(value);
 	}
-	
+
+	ngOnDestroy() {
+		this.stop();
+	}
+
 	private start() {
 		this.firstname = "";
 
@@ -48,6 +56,7 @@ export class ScanComponent {
 					this.canvas.height = this.height;
 
 					this.captureJob = window.setInterval(() => this.capture(), 1000);
+					this._ngZone.run(() => { this.scanRunning = true; });
 				},
 				(error) => alert("Camera rejected"));
 		} else {
@@ -57,8 +66,11 @@ export class ScanComponent {
 
 	private stop() {
 		window.clearInterval(this.captureJob);
-		var track = (<any>window).stream.getTracks()[0]; 
-		track.stop();
+		this.scanRunning = false;
+		if ((<any>window).stream) {
+			var track = (<any>window).stream.getTracks()[0];
+			track.stop();
+		}
 	}
 
 	private capture() {
@@ -74,8 +86,26 @@ export class ScanComponent {
 	}
 
 	private read(value: string) {
-		this.stop();
-		console.log(value);
-		this._ngZone.run(() => { this.firstname = value; });
+		this._ngZone.run(() => {
+			this.stop();
+			console.log(value);
+			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/56fb9efc316b5fb01e5629ff/checkin/56fb9f24316b5fb01e562a00",
+				"",
+				{ headers: this.authenticationService.getHttpHeaders() }).subscribe(
+				data => {
+					alert(data);
+				},
+				error => console.log(error),
+				() => {
+					alert("done");
+				});
+
+			this.firstname = this.getParameterByName(value, "id");
+		});
+	}
+
+	private getParameterByName(url, name) {
+		var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);
+		return match && decodeURIComponent(match[1].replace(/\+/g, " "));
 	}
 }

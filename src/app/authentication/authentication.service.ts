@@ -1,4 +1,5 @@
 ﻿import {Injectable} from "angular2/core";
+import {Headers} from "angular2/http";
 
 @Injectable()
 export class AuthenticationService {
@@ -37,6 +38,16 @@ export class AuthenticationService {
 		return localStorage.getItem("gapi_token");
 	}
 
+	public getHttpHeaders(): Headers {
+		var headers = new Headers();
+		headers.append("Authorization", "Bearer " + this.getToken());
+		return headers;
+	}
+
+	public getServiceUrl(): string {
+		return "http://192.168.2.11:1337";
+	}
+
 	private loadScript(): Promise<boolean> {
 		var that = this;
 		return new Promise((resolve, reject) => {
@@ -66,7 +77,7 @@ export class AuthenticationService {
 				console.log("retry execute script");
 				that.executeScript();
 			}
-		}, 50);
+		}, 100);
 	}
 
 	private initAuth2() {
@@ -86,7 +97,7 @@ export class AuthenticationService {
 				origin = origin + ":" + location.port;
 			}
 
-			var authWindow = window.open("https://accounts.google.com/o/oauth2/auth?scope=" + encodeURI(that.scopes) + "&redirect_uri=postmessage&response_type=code&client_id=" + that.clientId + "&access_type=offline&approval_prompt=force&origin=" + origin, null, "width=800, height=600");
+			var authWindow = window.open("https://accounts.google.com/o/oauth2/auth?scope=" + encodeURI(that.scopes) + "&redirect_uri=postmessage&response_type=code&client_id=" + that.clientId + "&access_type=online&origin=" + origin, null, "width=800, height=600");
 			window.addEventListener("message", (event: any) => {
 				if (event.origin === "https://accounts.google.com" && event.data) {
 					var data = JSON.parse(event.data);

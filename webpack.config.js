@@ -30,8 +30,12 @@ module.exports = {
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html" }),
+        new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html", favicon: "src/favicon.ico" }),
         new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor"] }),
         new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" })
-    ]
+    ],
+    devServer: {
+        port: 8080,
+        historyApiFallback: true
+    }
 };

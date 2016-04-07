@@ -16,19 +16,23 @@
     left: 0;
     bottom: 0;
     right: 0;
+    background-color: #999;
 }
 
 video {
     width: 100%;
     height: 100%;
-    border: solid 1px #999;
 }
 
 canvas {
     display: none;
 }
 
-#scan-button {
+button[hidden] {
+    display: none;
+}
+
+.scan-button {
     height: 80px;
 }
 
