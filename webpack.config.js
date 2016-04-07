@@ -21,12 +21,12 @@ module.exports = {
             { test: /\.html$/, loader: "raw-loader", exclude: ["src/index.html"] },
             { test: /\.css$/, loader: "style!css" },
             { test: /bootstrap\/js\//, loader: "imports?jQuery=jquery" },
-            { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000" }, 
+            { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000" },
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: "file" },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: "imports?jQuery=jquery" },
-            { test: /scriptcam\.js/, loader: "imports?jQuery=jquery" },
             { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" },
-            { test: /vendor\/.+\.(jsx|js)$/, loader: "imports?jQuery=jquery" },
+            { test: /jsqrcode-master/, loader: "script-loader" },
+            { test: /\.swf$/, loader: "file?name=[path][name].[ext]" }
         ],
     },
     plugins: [

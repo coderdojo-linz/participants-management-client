@@ -1,7 +1,17 @@
 ﻿<div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <h1>Scan Badge</h1>
+            <h1>Registrieren</h1>
+        </div>
+        <div class="col-sm-6">
+            <div class="video-box">
+                <div class="video-content"><video autoplay="autoplay"></video></div>
+            </div>
+            <canvas id="qr-canvas"></canvas>
+        </div>
+        <div class="col-sm-6">
+            <button id="scan-button" class="btn btn-primary btn-lg btn-block" (click)="start()">Scannen</button>
+            <div [hidden]="!firstname" id="welcome-message" class="alert alert-success" role="alert">Willkommen beim CoderDojo Linz, {{firstname}}!</div>
         </div>
     </div>
 </div>

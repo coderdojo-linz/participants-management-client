@@ -27,7 +27,7 @@ export class AppComponent {
 		var that = this;
 
 		authenticationService.login().then(() => {
-			that.router.navigate(["Participants"]);
+			that.router.navigate(["Scan"]);
 		});
 	}
 }

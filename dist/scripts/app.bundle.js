@@ -70,7 +70,11 @@ webpackJsonp([0],{
 /***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
+	/*** IMPORTS FROM imports-loader ***/
+
+
 	__webpack_require__(226);
+
 
 
 /***/ },
@@ -99,8 +103,8 @@ webpackJsonp([0],{
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../css-loader/index.js!./../resolve-url-loader/index.js!./../sass-loader/index.js?sourceMap!./lib/bootstrap.styles.loader.js!./no-op.js", function() {
-				var newContent = require("!!./../css-loader/index.js!./../resolve-url-loader/index.js!./../sass-loader/index.js?sourceMap!./lib/bootstrap.styles.loader.js!./no-op.js");
+			module.hot.accept("!!./../css-loader/index.js!./../resolve-url-loader/index.js!./../sass-loader/index.js?sourceMap!./lib/bootstrap.styles.loader.js!./../imports-loader/index.js!./../imports-loader/index.js!./no-op.js", function() {
+				var newContent = require("!!./../css-loader/index.js!./../resolve-url-loader/index.js!./../sass-loader/index.js?sourceMap!./lib/bootstrap.styles.loader.js!./../imports-loader/index.js!./../imports-loader/index.js!./no-op.js");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -128,6 +132,9 @@ webpackJsonp([0],{
 
 /***/ 229:
 /***/ function(module, exports) {
+
+	/*** IMPORTS FROM imports-loader ***/
+
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
@@ -179,6 +186,7 @@ webpackJsonp([0],{
 		};
 		return list;
 	};
+
 
 
 /***/ },
@@ -493,7 +501,10 @@ webpackJsonp([0],{
 /***/ 237:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: transition.js v3.3.6
 	 * http://getbootstrap.com/javascript/#transitions
 	 * ========================================================================
@@ -553,6 +564,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -560,7 +572,10 @@ webpackJsonp([0],{
 /***/ 239:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: alert.js v3.3.6
 	 * http://getbootstrap.com/javascript/#alerts
 	 * ========================================================================
@@ -655,6 +670,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -662,7 +678,10 @@ webpackJsonp([0],{
 /***/ 240:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: button.js v3.3.6
 	 * http://getbootstrap.com/javascript/#buttons
 	 * ========================================================================
@@ -783,6 +802,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -790,7 +810,10 @@ webpackJsonp([0],{
 /***/ 241:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: carousel.js v3.3.6
 	 * http://getbootstrap.com/javascript/#carousel
 	 * ========================================================================
@@ -1028,6 +1051,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -1035,7 +1059,10 @@ webpackJsonp([0],{
 /***/ 242:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: collapse.js v3.3.6
 	 * http://getbootstrap.com/javascript/#collapse
 	 * ========================================================================
@@ -1247,6 +1274,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -1254,7 +1282,10 @@ webpackJsonp([0],{
 /***/ 243:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: dropdown.js v3.3.6
 	 * http://getbootstrap.com/javascript/#dropdowns
 	 * ========================================================================
@@ -1420,6 +1451,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -1427,7 +1459,10 @@ webpackJsonp([0],{
 /***/ 244:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: modal.js v3.3.6
 	 * http://getbootstrap.com/javascript/#modals
 	 * ========================================================================
@@ -1765,6 +1800,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -1772,7 +1808,10 @@ webpackJsonp([0],{
 /***/ 245:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: tooltip.js v3.3.6
 	 * http://getbootstrap.com/javascript/#tooltip
 	 * Inspired by the original jQuery.tipsy by Jason Frame
@@ -2287,6 +2326,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -2294,7 +2334,10 @@ webpackJsonp([0],{
 /***/ 246:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: popover.js v3.3.6
 	 * http://getbootstrap.com/javascript/#popovers
 	 * ========================================================================
@@ -2403,6 +2446,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -2410,7 +2454,10 @@ webpackJsonp([0],{
 /***/ 247:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: scrollspy.js v3.3.6
 	 * http://getbootstrap.com/javascript/#scrollspy
 	 * ========================================================================
@@ -2583,6 +2630,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -2590,7 +2638,10 @@ webpackJsonp([0],{
 /***/ 248:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: tab.js v3.3.6
 	 * http://getbootstrap.com/javascript/#tabs
 	 * ========================================================================
@@ -2746,6 +2797,7 @@ webpackJsonp([0],{
 
 	}(jQuery);
 
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
 /***/ },
@@ -2753,7 +2805,10 @@ webpackJsonp([0],{
 /***/ 249:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
+	/* WEBPACK VAR INJECTION */(function(jQuery) {/*** IMPORTS FROM imports-loader ***/
+
+
+	/* ========================================================================
 	 * Bootstrap: affix.js v3.3.6
 	 * http://getbootstrap.com/javascript/#affix
 	 * ========================================================================
@@ -2915,6 +2970,7 @@ webpackJsonp([0],{
 	  })
 
 	}(jQuery);
+
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(238)))
 
@@ -3123,7 +3179,7 @@ webpackJsonp([0],{
 /***/ 284:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"col-sm-12\">\r\n            <h1>Participants</h1>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"row\">\r\n        <div class=\"col-sm-12\">\r\n            <h1>Participants</h1>\r\n            <div id=\"webcam\"></div>\r\n\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
 
