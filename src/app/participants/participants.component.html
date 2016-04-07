@@ -5,7 +5,22 @@
             <select class="form-control" [(ngModel)]="selectedEvent" (ngModelChange)="loadParticipants()">
                 <option *ngFor="#event of events" [value]="event._id">{{event.date}}</option>
             </select>
-            {{selectedEvent}}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Eingecheckt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="#participant of participants">
+                        <td>{{participant.givenName}}</td>
+                        <td>{{participant.lastName}}</td>
+                        <td><input type="checkbox" value="{{participant.checkedIn}}" disabled></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

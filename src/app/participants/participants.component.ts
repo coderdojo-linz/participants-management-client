@@ -4,11 +4,13 @@ import {AuthenticationService} from "./../authentication/authentication.service.
 
 @Component({
     template: require("./participants.component.html"),
+	styles: [require("./participants.component.scss")],
 	providers: [HTTP_PROVIDERS, AuthenticationService]
 })
 export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
 	public selectedEvent: string;
+	public participants: Participant[] = [];
 	
 	constructor(private http: Http, private authenticationService: AuthenticationService) {
 		this.loadEvents();
@@ -19,7 +21,7 @@ export class ParticipantsComponent {
 	}
 
 	public loadParticipants() {
-		console.log("load participants: " + this.selectedEvent);
+		this.participants = [{ _id: "test", givenName: "test", lastName: "test", checkedIn: false }];
 	}
 
 	private loadEvents() {
@@ -37,4 +39,11 @@ export interface CoderDojoEvent {
 	_id: string;
 	location: string;
 	date: string;
+}
+
+export interface Participant {
+	_id: string;
+	givenName: string;
+	lastName: string;
+	checkedIn: boolean;
 }

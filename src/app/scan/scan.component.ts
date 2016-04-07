@@ -1,12 +1,14 @@
 ﻿require("file?name=camcanvas.swf!./../../../components/jsqrcode-master/src/camcanvas.swf");
 import {Component, NgZone} from "angular2/core";
+import {NgClass} from "angular2/common";
 import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";
 
 @Component({
     template: require("./scan.component.html"),
 	styles: [require("./scan.component.scss")],
-	providers: [HTTP_PROVIDERS, AuthenticationService]
+	providers: [HTTP_PROVIDERS, AuthenticationService],
+	directives: [NgClass]
 })
 export class ScanComponent {
 	public id: number;
