@@ -45,7 +45,7 @@ export class AuthenticationService {
 	}
 
 	public getServiceUrl(): string {
-		return "http://192.168.2.11:1337";
+		return "http://192.168.1.159:1337";
 	}
 
 	private loadScript(): Promise<boolean> {

@@ -18,6 +18,10 @@
                 <div [hidden]="newCheckin">Du bist heute bereits eingecheckt.</div>
             </div>
 
+            <div [hidden]="!hasError" class="alert alert-danger">
+                Beim Scannen ist ein Fehler aufgetreten. Probiere es noch einmal.
+            </div>
+
             <button [hidden]="!firstname" class="btn btn-info" type="button">
                 CoderDojo Punkte <span class="badge">{{points}}</span>
             </button>

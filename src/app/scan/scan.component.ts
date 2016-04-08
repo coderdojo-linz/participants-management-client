@@ -15,6 +15,7 @@ export class ScanComponent {
 	public firstname: string = "";
 	public points: number = 0;
 	public newCheckin: boolean = false;
+	public hasError: boolean = false;
 
 	private video: any;
 	private canvas: any;
@@ -38,6 +39,7 @@ export class ScanComponent {
 
 	private start() {
 		this.firstname = "";
+		this.hasError = false;
 
 		var navigator = (<any>window.navigator);
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -94,8 +96,11 @@ export class ScanComponent {
 			this.stop();
 			console.log(value);
 			var participantId = this.getParameterByName(value, "id");
+			var eventId = "570741d91ba1aba3b923ff88";
 
-			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/56fb9efc316b5fb01e5629ff/checkin/56fb9f24316b5fb01e562a00",
+			participantId = "570741db1ba1aba3b923ff89";
+
+			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/" + participantId + "/checkin/" + eventId,
 				"",
 				{ headers: this.authenticationService.getHttpHeaders() }).subscribe(
 				data => {
@@ -105,7 +110,10 @@ export class ScanComponent {
 					this.newCheckin = result.newCheckin;
 					this.firstname = result.givenName;
 				},
-				error => console.log(error));
+				error => {
+					this.hasError = true;
+					console.log(error);
+				});
 		});
 	}
 

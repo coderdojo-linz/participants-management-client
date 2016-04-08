@@ -10,7 +10,8 @@ import {AuthenticationService} from "./../authentication/authentication.service.
 export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
 	public selectedEvent: string;
-	public participants: Participant[] = [];
+	public registrations: Registrations[] = [];
+	public numberOfCheckedInParticipants: number = 0;
 	
 	constructor(private http: Http, private authenticationService: AuthenticationService) {
 		this.loadEvents();
@@ -21,7 +22,21 @@ export class ParticipantsComponent {
 	}
 
 	public loadParticipants() {
-		this.participants = [{ _id: "test", givenName: "test", lastName: "test", checkedIn: false }];
+		this.http.get(this.authenticationService.getServiceUrl() + "/api/events/" + this.selectedEvent + "/registrations", { headers: this.authenticationService.getHttpHeaders() })
+			.subscribe(data => {
+				if (data) {
+					this.registrations = data.json();
+					this.numberOfCheckedInParticipants = this.registrations.filter(r => r.checkedin).length;
+				} else {
+					this.registrations = [];
+					this.numberOfCheckedInParticipants = 0;
+				}
+			},
+			error => {
+				console.error(error);
+				this.registrations = [];
+				this.numberOfCheckedInParticipants = 0;
+			});
 	}
 
 	private loadEvents() {
@@ -41,9 +56,7 @@ export interface CoderDojoEvent {
 	date: string;
 }
 
-export interface Participant {
+export interface Registrations {
 	_id: string;
-	givenName: string;
-	lastName: string;
-	checkedIn: boolean;
+	checkedin: boolean;
 }
