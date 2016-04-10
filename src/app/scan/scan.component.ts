@@ -98,7 +98,7 @@ export class ScanComponent {
 			var participantId = this.getParameterByName(value, "id");
 			var eventId = "570741d91ba1aba3b923ff88";
 
-			participantId = "570741db1ba1aba3b923ff89";
+			//participantId = "570741e31ba1aba3b923ffa5";
 
 			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/" + participantId + "/checkin/" + eventId,
 				"",

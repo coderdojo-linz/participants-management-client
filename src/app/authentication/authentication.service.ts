@@ -3,29 +3,27 @@ import {Headers} from "angular2/http";
 
 @Injectable()
 export class AuthenticationService {
-	private token: string;
 	private clientId = "682790434079-ild2uguq4td7h8f5hcqk22str8padhh9.apps.googleusercontent.com";
-	private scopes = "profile email";
+	private scopes = "https://www.googleapis.com/auth/userinfo.email";
+	private responseTypes = "token id_token";
 	private scriptLoaded: boolean = false;
 	private auth2: gapi.auth2.GoogleAuth;
 	private googleUser: gapi.auth2.GoogleUser;
-	private signedIn: boolean = false;
-	private promiseResolve: any;
-
-	constructor() {
-		// TODO: check if token in local storage is valid
-	}
+	private resolveLogin: any;
+	private rejectLogin: any;
 
 	public login() {
-		var that = this;
+		// TODO: check if user is already signed in
 		var promise = new Promise((resolve, reject) => {
-			that.promiseResolve = resolve;
-			that.loadScript().then((scriptLoaded) => {
-				if (scriptLoaded) {
-					that.executeScript();
-				} else {
-					reject();
-				}
+			this.resolveLogin = resolve;
+			this.rejectLogin = reject;
+
+			this.loadScript().then(() => {
+				this.executeScript();
+			}, (reason) => {
+				console.log("script could not be loaded");
+				console.log(reason);
+				reject();
 			}).catch(() => {
 				reject();
 			});
@@ -35,7 +33,7 @@ export class AuthenticationService {
 	}
 
 	public getToken() {
-		return localStorage.getItem("gapi_token");
+		return sessionStorage.getItem("gapi_token");
 	}
 
 	public getHttpHeaders(): Headers {
@@ -45,86 +43,66 @@ export class AuthenticationService {
 	}
 
 	public getServiceUrl(): string {
-		return "http://192.168.1.159:1337";
+		//return "http://192.168.1.159:1337";
+		return "https://participants-management-service.azurewebsites.net";
 	}
 
 	private loadScript(): Promise<boolean> {
-		var that = this;
 		return new Promise((resolve, reject) => {
-			if (that.scriptLoaded) {
-				return resolve(true);
+			if (this.scriptLoaded) {
+				return resolve();
 			} else {
 				var url = "https://apis.google.com/js/client.js?onload=gapiOnLoad";
 				var script = document.createElement("script");
 				script.onerror = function (e) {
-					resolve(false);
+					reject();
 				};
 
 				script.src = url;
 				document.body.appendChild(script);
-				resolve(true);
+				resolve();
 			}
 		});
 	}
 
 	private executeScript() {
-		var that = this;
 		window.setTimeout(() => {
 			var gapi = (<any>window).gapi;
 			if (gapi) {
-				gapi.load("auth2", () => that.initAuth2());
+				gapi.load("auth2", () => this.initAuth2());
 			} else {
 				console.log("retry execute script");
-				that.executeScript();
+				this.executeScript();
 			}
 		}, 100);
 	}
 
 	private initAuth2() {
 		var that = this;
-		that.auth2 = gapi.auth2.init({
-			client_id: that.clientId,
-			scope: that.scopes
+		this.auth2 = gapi.auth2.init({
+			client_id: this.clientId,
+			scope: this.scopes
 		});
 
-		// Sign in the user if they are currently signed in.
-		if (that.auth2.isSignedIn.get()) {
-			that.auth2.signIn();
-			that.updateUser();
-		} else {
-			var origin = location.protocol + "//" + location.hostname;
-			if (location.port != "" || (location.port != "443" && location.protocol == "https")) {
-				origin = origin + ":" + location.port;
-			}
-
-			var authWindow = window.open("https://accounts.google.com/o/oauth2/auth?scope=" + encodeURI(that.scopes) + "&redirect_uri=postmessage&response_type=code&client_id=" + that.clientId + "&access_type=online&origin=" + origin, null, "width=800, height=600");
-			window.addEventListener("message", (event: any) => {
-				if (event.origin === "https://accounts.google.com" && event.data) {
-					var data = JSON.parse(event.data);
-					if (data.result && data.result.id_token) {
-						that.updateUser();
-					}
-				}
-			});
-		}
+		var options = { client_id: this.clientId, scope: this.scopes, immediate: false, authuser: -1, response_type: this.responseTypes };
+		this.auth2.signIn(options).then(() => {
+			this.updateUser();
+		});
 	};
 
 	private updateUser() {
-		var that = this;
-		if (that.auth2) {
-			that.googleUser = this.auth2.currentUser.get();
+		if (this.auth2) {
+			this.googleUser = this.auth2.currentUser.get();
 
-			if (that.googleUser) {
-				if (that.googleUser["hg"]) {
-					that.token = that.googleUser["hg"].id_token;
-					localStorage.setItem("gapi_token", that.token);
-					that.promiseResolve();
+			if (this.googleUser) {
+				if (this.googleUser["hg"]) {
+					sessionStorage.setItem("gapi_token", this.googleUser["hg"].id_token);
+					this.resolveLogin();
 				}
 			} else {
-				that.token = null;
+				sessionStorage.removeItem("gapi_token");
+				this.rejectLogin();
 			}
-
-			console.log("is signed in: " + that.auth2.isSignedIn.get());
 		}
 	}
 }

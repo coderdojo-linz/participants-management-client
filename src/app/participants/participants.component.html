@@ -3,18 +3,20 @@
         <div class="col-sm-12">
             <h1>Teilnehmer</h1>
             <select class="form-control" [(ngModel)]="selectedEvent" (ngModelChange)="loadParticipants()">
-                <option *ngFor="#event of events" [value]="event._id">{{event.date}}</option>
+                <option *ngFor="#event of events" [value]="event._id">{{event.date | date}}</option>
             </select>
             <div class="alert alert-info">
                 <div class="row">
                     <div class="col-sm-4">Anmeldungen <span class="badge">{{registrations.length}}</span></div>
                     <div class="col-sm-4">Eingecheckt <span class="badge">{{numberOfCheckedInParticipants}}</span></div>
-                    <div class="col-sm-4"><button (click)="loadParticipants()" class="btn btn-primary">Aktualisieren</button></div>
+                    <div class="col-sm-2"><button (click)="loadParticipants()" class="btn btn-primary">Aktualisieren</button></div>
+                    <div class="col-sm-2"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-primary">Eventbrite</button></div>
                 </div>
             </div>
             <table class="table">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Vorname</th>
                         <th>Nachname</th>
                         <th>Eingecheckt</th>
@@ -22,6 +24,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="#registration of registrations">
+                        <td>{{registration.participant.id}}</td>
                         <td>{{registration.participant.familyName}}</td>
                         <td>{{registration.participant.givenName}}</td>
                         <td><input type="checkbox" [checked]="registration.checkedin ? 'checked' : ''" disabled></td>
