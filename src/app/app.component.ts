@@ -26,8 +26,11 @@ export class AppComponent {
 	constructor(private authenticationService: AuthenticationService, private router: Router) {
 		var that = this;
 
-		authenticationService.login().then(() => {
-			that.router.navigate(["Scan"]);
-		});
+		authenticationService.login().then(
+			() => {
+				that.router.navigate(["Scan"]);
+			}, (reason) => {
+				alert("error: " + reason);
+			});
 	}
 }
