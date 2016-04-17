@@ -18,7 +18,7 @@ export class AuthenticationService {
 
 			gapi.load("auth2", () => {
 				gapi.client.setApiKey(this.apiKey);
-				this.authorize(true);
+				window.setTimeout(this.authorize(true), 1);
 			});
 		});
 
