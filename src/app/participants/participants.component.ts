@@ -1,12 +1,11 @@
 ﻿import {Component, Input, OnChanges, SimpleChange} from "angular2/core";
-import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
-import {AuthenticationService} from "./../authentication/authentication.service.ts";
+import {CDHttpService} from "./../http/cdhttp.service.ts";
 import "rxjs/Rx";
 
 @Component({
     template: require("./participants.component.html"),
 	styles: [require("./participants.component.scss")],
-	providers: [HTTP_PROVIDERS, AuthenticationService]
+	providers: [CDHttpService]
 })
 export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
@@ -14,12 +13,12 @@ export class ParticipantsComponent {
 	public registrations: Registrations[] = [];
 	public numberOfCheckedInParticipants: number = 0;
 	
-	constructor(private http: Http, private authenticationService: AuthenticationService) {
+	constructor( private cdHttpService: CDHttpService) {
 		this.loadEvents();
 	}
 
 	public loadParticipants() {
-		this.http.get(this.authenticationService.getServiceUrl() + "/api/events/" + this.selectedEvent + "/registrations", { headers: this.authenticationService.getHttpHeaders() })
+		this.cdHttpService.get("/api/events/" + this.selectedEvent + "/registrations")
 			.map(data => data.json())
 			.subscribe(data => {
 				if (data) {
@@ -38,7 +37,7 @@ export class ParticipantsComponent {
 	}
 
 	public loadParticipantsFromEventbrite() {
-		this.http.post(this.authenticationService.getServiceUrl() + "/admin/eventbrite-sync", "", { headers: this.authenticationService.getHttpHeaders() })
+		this.cdHttpService.post("/admin/eventbrite-sync", "")
 			.subscribe(data => {
 				this.loadParticipants();
 			},
@@ -49,7 +48,7 @@ export class ParticipantsComponent {
 
 	private loadEvents() {
 		var datePattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-		this.http.get(this.authenticationService.getServiceUrl() + "/api/events")
+		this.cdHttpService.get("/api/events")
 			.map(data => data.json())
 			.map(data => {
 				var arrayData = <any[]>data;

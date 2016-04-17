@@ -40,11 +40,6 @@ export class AuthenticationService {
 		return headers;
 	}
 
-	public getServiceUrl(): string {
-		//return "http://192.168.1.159:1337";
-		return "https://participants-management-service.azurewebsites.net";
-	}
-
 	private loadScript(): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			var url = "https://apis.google.com/js/client.js";

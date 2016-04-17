@@ -1,12 +1,11 @@
 ﻿import {Component, NgZone} from "angular2/core";
 import {NgClass} from "angular2/common";
-import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
-import {AuthenticationService} from "./../authentication/authentication.service.ts";
+import {CDHttpService} from "./../http/cdhttp.service.ts";
 
 @Component({
     template: require("./scan.component.html"),
 	styles: [require("./scan.component.scss")],
-	providers: [HTTP_PROVIDERS, AuthenticationService],
+	providers: [CDHttpService],
 	directives: [NgClass]
 })
 export class ScanComponent {
@@ -25,7 +24,7 @@ export class ScanComponent {
 	private height: number;
 	private scanRunning: boolean = false;
 
-	constructor(private _ngZone: NgZone, private http: Http, private authenticationService: AuthenticationService) { }
+	constructor(private _ngZone: NgZone, private cdHttpService: CDHttpService) { }
 
 	ngAfterViewInit() {
 		this.canvas = <any>document.getElementById("qr-canvas");
@@ -97,11 +96,8 @@ export class ScanComponent {
 			var participantId = this.getParameterByName(value, "id");
 			var eventId = "570741d91ba1aba3b923ff88";
 
-			//participantId = "570741e31ba1aba3b923ffa5";
-
-			this.http.post(this.authenticationService.getServiceUrl() + "/api/participants/" + participantId + "/checkin/" + eventId,
-				"",
-				{ headers: this.authenticationService.getHttpHeaders() }).subscribe(
+			this.cdHttpService.post("/api/participants/" + participantId + "/checkin/" + eventId,
+				"").subscribe(
 				data => {
 					var result = data.json();
 
