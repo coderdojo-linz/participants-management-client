@@ -1,30 +1,33 @@
 ﻿<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Registrieren</h1>
-        </div>
-        <div class="col-sm-6">
-            <div class="video-box">
-                <div class="video-content"><video autoplay="autoplay"></video></div>
-            </div>
-            <canvas id="qr-canvas"></canvas>
-        </div>
-        <div class="col-sm-6">
-            <button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
-            <button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Registrieren</h1>
+		</div>
+		<div class="col-sm-12">
+			<div class="video-box">
+				<div class="video-content"><video autoplay="autoplay"></video></div>
 
-            <div [hidden]="!firstname" class="alert" [ngClass]="{'alert-success': newCheckin, 'alert-warning': !newCheckin}" role="alert">
-                Willkommen beim CoderDojo, {{firstname}}!
-                <div [hidden]="newCheckin">Du bist heute bereits eingecheckt.</div>
-            </div>
+				<button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
+				<button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>
+			</div>
+			<canvas id="qr-canvas"></canvas>
+		</div>
+		<div class="col-sm-12">
+			<!--<button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
+			<button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>-->
 
-            <div [hidden]="!hasError" class="alert alert-danger">
-                Beim Scannen ist ein Fehler aufgetreten. Probiere es noch einmal.
-            </div>
+			<div [hidden]="!firstname" class="alert" [ngClass]="{'alert-success': newCheckin, 'alert-warning': !newCheckin}" role="alert">
+				Willkommen beim CoderDojo, {{firstname}}!
+				<div [hidden]="newCheckin">Du bist heute bereits eingecheckt.</div>
+			</div>
 
-            <button [hidden]="!firstname" class="btn btn-info" type="button">
-                CoderDojo Punkte <span class="badge">{{points}}</span>
-            </button>
-        </div>
-    </div>
+			<div [hidden]="!hasError" class="alert alert-danger">
+				Beim Scannen ist ein Fehler aufgetreten. Probiere es noch einmal.
+			</div>
+
+			<button [hidden]="!firstname" class="btn btn-info" type="button">
+				CoderDojo Punkte <span class="badge">{{points}}</span>
+			</button>
+		</div>
+	</div>
 </div>

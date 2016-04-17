@@ -11,6 +11,7 @@ export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
 	public selectedEvent: string;
 	public registrations: Registrations[] = [];
+	public numberOfNotebooks: number = 0;
 	public numberOfCheckedInParticipants: number = 0;
 	
 	constructor( private cdHttpService: CDHttpService) {
@@ -23,9 +24,11 @@ export class ParticipantsComponent {
 			.subscribe(data => {
 				if (data) {
 					this.registrations = data;
+					this.numberOfNotebooks = this.registrations.filter(r => r.needsComputer).length;
 					this.numberOfCheckedInParticipants = this.registrations.filter(r => r.checkedin).length;
 				} else {
 					this.registrations = [];
+					this.numberOfNotebooks = 0;
 					this.numberOfCheckedInParticipants = 0;
 				}
 			},
@@ -48,7 +51,7 @@ export class ParticipantsComponent {
 
 	private loadEvents() {
 		var datePattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-		this.cdHttpService.get("/api/events")
+		this.cdHttpService.get("/api/events?past=true")
 			.map(data => data.json())
 			.map(data => {
 				var arrayData = <any[]>data;
@@ -81,5 +84,6 @@ export interface CoderDojoEvent {
 
 export interface Registrations {
 	_id: string;
+	needsComputer: boolean;
 	checkedin: boolean;
 }

@@ -7,10 +7,11 @@
             </select>
             <div class="alert alert-info">
                 <div class="row">
-                    <div class="col-sm-4">Anmeldungen <span class="badge">{{registrations.length}}</span></div>
-                    <div class="col-sm-4">Eingecheckt <span class="badge">{{numberOfCheckedInParticipants}}</span></div>
-                    <div class="col-sm-2"><button (click)="loadParticipants()" class="btn btn-primary">Aktualisieren</button></div>
-                    <div class="col-sm-2"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-primary">Eventbrite</button></div>
+                    <div class="col-xs-4 col-sm-2 text-center">Anmeldungen<br /><span class="badge">{{registrations.length}}</span></div>
+                    <div class="col-xs-4 col-sm-2 text-center">Notebooks<br /><span class="badge">{{numberOfNotebooks}}</span></div>
+					<div class="col-xs-4 col-sm-2 text-center">Eingecheckt<br /><span class="badge">{{numberOfCheckedInParticipants}}</span></div>
+                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipants()" class="btn btn-primary btn-block">Aktualisieren</button></div>
+                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-primary btn-block">Eventbrite</button></div>
                 </div>
             </div>
             <table class="table">
@@ -19,6 +20,7 @@
                         <th>ID</th>
                         <th>Vorname</th>
                         <th>Nachname</th>
+						<th>Notebook</th>
                         <th>Eingecheckt</th>
                     </tr>
                 </thead>
@@ -27,7 +29,8 @@
                         <td>{{registration.participant.id}}</td>
                         <td>{{registration.participant.familyName}}</td>
                         <td>{{registration.participant.givenName}}</td>
-                        <td><input type="checkbox" [checked]="registration.checkedin ? 'checked' : ''" disabled></td>
+						<td class=" text-center"><input type="checkbox" [checked]="registration.needsComputer ? 'checked' : ''" disabled></td>
+                        <td class=" text-center"><input type="checkbox" [checked]="registration.checkedin ? 'checked' : ''" disabled></td>
                     </tr>
                 </tbody>
             </table>
