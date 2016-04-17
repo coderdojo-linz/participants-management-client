@@ -7,7 +7,6 @@ export class AuthenticationService {
 	private apiKey = "iuGUoOfzdftoufCpBoMIjlom";
 	private scopes = "https://www.googleapis.com/auth/userinfo.email";
 	private responseTypes = "token id_token";
-	private retryAttempts = 0;
 	private resolveLogin: any;
 	private rejectLogin: any;
 
@@ -17,7 +16,10 @@ export class AuthenticationService {
 			this.resolveLogin = resolve;
 			this.rejectLogin = reject;
 
-			this.executeScript();
+			gapi.load("auth2", () => {
+				gapi.client.setApiKey(this.apiKey);
+				this.authorize(true);
+			});
 		});
 
 		return promise;
@@ -26,51 +28,11 @@ export class AuthenticationService {
 	public getToken() {
 		var token = <any>gapi.auth.getToken();
 		if (token) {
-			console.log(token);
 			return token.id_token;
 		} else {
 			console.log("Could not get token");
 			return null;
 		}
-	}
-
-	public getHttpHeaders(): Headers {
-		var headers = new Headers();
-		headers.append("Authorization", "Bearer " + this.getToken());
-		return headers;
-	}
-
-	private loadScript(): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			var url = "https://apis.google.com/js/client.js";
-			var script = document.createElement("script");
-			script.onerror = function (e) {
-				reject();
-			};
-
-			script.src = url;
-			document.body.appendChild(script);
-			resolve();
-		});
-	}
-
-	private executeScript() {
-		window.setTimeout(() => {
-			var gapi = (<any>window).gapi;
-			if (gapi) {
-				gapi.load("auth2", () => {
-					gapi.client.setApiKey(this.apiKey);
-					this.authorize(true);
-				});
-			} else {
-				console.log("retry execute script");
-				this.retryAttempts++;
-
-				if (this.retryAttempts < 10) {
-					this.executeScript();
-				}
-			}
-		}, 50);
 	}
 
 	private authorize(immediate: boolean) {
