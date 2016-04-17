@@ -63,8 +63,6 @@ export class ParticipantsComponent {
 					});
 				});
 
-				console.log("events");
-				console.log(arrayData);
 				return arrayData;
 			})
 			.subscribe(data => this.events = data,

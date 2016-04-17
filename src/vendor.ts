@@ -21,3 +21,4 @@ import "./../components/jsqrcode-master/src/qrcode.js";
 import "./../components/jsqrcode-master/src/findpat.js";
 import "./../components/jsqrcode-master/src/alignpat.js";
 import "./../components/jsqrcode-master/src/databr.js"; 
+import "./../components/google/google-client.js"; 

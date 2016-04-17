@@ -1,4 +1,5 @@
-﻿require("bootstrap-loader");
+﻿require("file?name=google-client.js!./../../components/google/google-client.js");
+require("bootstrap-loader");
 import {Component} from "angular2/core";
 import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
 import {LoginComponent} from "./login/login.component";

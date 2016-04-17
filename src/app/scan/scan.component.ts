@@ -1,5 +1,4 @@
-﻿require("file?name=camcanvas.swf!./../../../components/jsqrcode-master/src/camcanvas.swf");
-import {Component, NgZone} from "angular2/core";
+﻿import {Component, NgZone} from "angular2/core";
 import {NgClass} from "angular2/common";
 import {HTTP_PROVIDERS, Http, Headers} from "angular2/http";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";

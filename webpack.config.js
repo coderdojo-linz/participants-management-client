@@ -26,6 +26,7 @@ module.exports = {
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: "imports?jQuery=jquery" },
             { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" },
             { test: /jsqrcode-master/, loader: "script-loader" },
+			{ test: /google/, loader: "script-loader" },
             { test: /\.swf$/, loader: "file?name=[path][name].[ext]" }
         ],
     },
