@@ -18,11 +18,12 @@ module.exports = {
         loaders: [
             { test: /\.ts/, loaders: ["ts-loader"], exclude: /node_modules/ },
             { test: /\.scss$/, exclude: /node_modules/, loaders: ["raw-loader", "sass-loader", "resolve-url"] },
-            { test: /\.html$/, loader: "raw-loader", exclude: ["src/index.html"] },
+            { test: /\.html$/, loader: "html-loader", exclude: ["src/index.html"] },
             { test: /\.css$/, loader: "style!css" },
             { test: /bootstrap\/js\//, loader: "imports?jQuery=jquery" },
             { test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000" },
             { test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/, loader: "file" },
+			{ test: /\.png$/, loader: "file-loader" },
             { test: /bootstrap-sass\/assets\/javascripts\//, loader: "imports?jQuery=jquery" },
             { test: require.resolve("jquery"), loader: "imports?jQuery=jquery" },
             { test: /jsqrcode-master/, loader: "script-loader" },
