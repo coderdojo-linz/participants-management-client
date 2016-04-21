@@ -4,6 +4,7 @@ import "angular2/core";
 import "angular2/http";
 import "angular2/router"; 
 
+//import "./../node_modules/angular2/bundles/angular2-polyfills.js";
 import "./../components/jsqrcode-master/src/grid.js";
 import "./../components/jsqrcode-master/src/version.js";
 import "./../components/jsqrcode-master/src/detector.js";

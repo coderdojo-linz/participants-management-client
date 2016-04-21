@@ -1,4 +1,4 @@
-﻿<div class="container">
+<div class="container">
 	<div class="row">
 		<div class="col-sm-12">
 			<h1>Registrieren</h1>
@@ -7,27 +7,36 @@
 			<div class="video-box">
 				<div class="video-content"><video autoplay="autoplay"></video></div>
 
-				<button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
-				<button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>
+				<button class="btn btn-success btn-lg scan-button" (click)="toggleScan()" [ngClass]="{'scan-button-active': scanRunning}">
+					<span [hidden]="scanRunning" class="glyphicon glyphicon-play" aria-hidden="true"></span>
+					<span [hidden]="!scanRunning" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+				</button>
 			</div>
 			<canvas id="qr-canvas"></canvas>
 		</div>
-		<div class="col-sm-12">
-			<!--<button [hidden]="scanRunning" class="btn btn-primary btn-lg btn-block scan-button" (click)="start()">Scan starten</button>
-			<button [hidden]="!scanRunning" class="btn btn-default btn-lg btn-block scan-button" (click)="stop()">Scan stoppen</button>-->
-
-			<div [hidden]="!firstname" class="alert" [ngClass]="{'alert-success': newCheckin, 'alert-warning': !newCheckin}" role="alert">
-				Willkommen beim CoderDojo, {{firstname}}!
-				<div [hidden]="newCheckin">Du bist heute bereits eingecheckt.</div>
-			</div>
-
-			<div [hidden]="!hasError" class="alert alert-danger">
-				Beim Scannen ist ein Fehler aufgetreten. Probiere es noch einmal.
-			</div>
-
-			<button [hidden]="!firstname" class="btn btn-info" type="button">
-				CoderDojo Punkte <span class="badge">{{points}}</span>
-			</button>
-		</div>
 	</div>
 </div>
+
+<div id="welcomeDialog" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Willkommen beim CoderDojo Linz</h4>
+			</div>
+			<div class="modal-body">
+				<h1>Hallo {{firstname}}!</h1>
+
+				<p [hidden]="points > 1">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
+				<p [hidden]="points == 1">Sch&ouml;n, dass du wieder dabei bist!</p>
+
+				<button class="btn btn-info btn-lg" type="button">
+					CoderDojo Punkte&nbsp;&nbsp;&nbsp;<span class="badge">{{points}}</span>
+				</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

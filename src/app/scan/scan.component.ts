@@ -29,10 +29,22 @@ export class ScanComponent {
 	ngAfterViewInit() {
 		this.canvas = <any>document.getElementById("qr-canvas");
 		(<any>window).qrcode.callback = (value: string) => this.read(value);
+
+		(<any>$("#welcomeDialog")).on("hidden.bs.modal", (e) => {
+			this.scanRunning = false;
+		});
 	}
 
 	ngOnDestroy() {
 		this.stop();
+	}
+
+	private toggleScan() {
+		if (this.scanRunning) {
+			this.stop();
+		} else {
+			this.start();
+		}
 	}
 
 	private start() {
@@ -69,11 +81,17 @@ export class ScanComponent {
 	}
 
 	private stop() {
-		window.clearInterval(this.captureJob);
 		this.scanRunning = false;
+		this.stopStream();
+	}
+
+	private stopStream() {
+		window.clearInterval(this.captureJob);
+
 		if ((<any>window).stream) {
 			var track = (<any>window).stream.getTracks()[0];
 			track.stop();
+			this.video.src = "";
 		}
 	}
 
@@ -91,19 +109,23 @@ export class ScanComponent {
 
 	private read(value: string) {
 		this._ngZone.run(() => {
-			this.stop();
+			this.stopStream();
 			console.log(value);
 			var participantId = this.getParameterByName(value, "id");
-			var eventId = "570741d91ba1aba3b923ff88";
+			participantId = "570741e31ba1aba3b923ffa5";
+			var eventId = "570741f01ba1aba3b923ffe1";
 
 			this.cdHttpService.post("/api/participants/" + participantId + "/checkin/" + eventId,
 				"").subscribe(
 				data => {
 					var result = data.json();
 
-					this.points = 1;
+					this.points = result.numberOfCheckins;
 					this.newCheckin = result.newCheckin;
 					this.firstname = result.givenName;
+
+					var options = {};
+					(<any>$("#welcomeDialog")).modal(options);
 				},
 				error => {
 					this.hasError = true;

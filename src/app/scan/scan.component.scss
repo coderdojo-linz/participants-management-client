@@ -1,15 +1,10 @@
-﻿.video-box {
+﻿$duration: 0.5s;
+
+.video-box {
 	position: relative;
 	width: 100%;
 	margin-bottom: 40px;
 	max-height: 70vh;
-
-	button {
-		position: absolute;
-		width: auto;
-		top: 50px;
-		right: 50px;
-	}
 }
 
 .video-box:before {
@@ -36,12 +31,31 @@ canvas {
 	display: none;
 }
 
-button[hidden] {
+button[hidden], span[hidden] {
 	display: none;
 }
 
 .scan-button {
-	height: 80px;
+	transition: top $duration, right $duration, background-color $duration, font-size $duration;
+
+	position: absolute;
+	top: calc(100% / 2 - 50px);
+	right: calc(100% / 2 - 50px);
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	outline: none;
+	border: none;
+	font-size: 30px;
+}
+
+.scan-button-active {
+	top: 50px;
+	right: 50px;
+	background-color: #333;
+	width: 70px;
+	height: 70px;
+	font-size: 20px;
 }
 
 .alert {
@@ -56,4 +70,14 @@ button[hidden] {
 
 .btn-default {
 	margin-top: 0 !important;
+}
+
+#welcomeDialog {
+	.modal-body {
+		p {
+			padding-top: 40px;
+			padding-bottom: 40px;
+			font-size: 20px;
+		}
+	}
 }
