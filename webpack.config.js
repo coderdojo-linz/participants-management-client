@@ -8,8 +8,8 @@ module.exports = {
     },
     output: {
         path: "./dist",
-        filename: "scripts/[name].bundle.js",
-        sourceMapFilename: "[name].map",
+        filename: "scripts/[name].[hash].bundle.js",
+        //sourceMapFilename: "scripts/[name].[hash].map"
     },
     resolve: {
         extensions: ["", ".js", ".ts"]
@@ -17,7 +17,8 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.ts/, loaders: ["ts-loader"], exclude: /node_modules/ },
-            { test: /\.scss$/, exclude: /node_modules/, loaders: ["raw-loader", "sass-loader", "resolve-url"] },
+            { test: /\.scss$/, exclude: /node_modules/, loaders: ["raw-loader", "sass-loader"] },
+			//{ test: /\.scss$/, exclude: /node_modules/, loaders: ["style", "css", "sass"] },
             { test: /\.html$/, loader: "html-loader", exclude: ["src/index.html"] },
             { test: /\.css$/, loader: "style!css" },
             { test: /bootstrap\/js\//, loader: "imports?jQuery=jquery" },
@@ -34,8 +35,32 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html", favicon: "src/favicon.ico" }),
         new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor"] }),
-        new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" })
+        new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }),
+		new webpack.optimize.UglifyJsPlugin({
+			beautify: false, //prod 
+			mangle: { 
+				screw_ie8 : true, 
+				keep_fnames: true 
+			}, //prod 
+			compress: { 
+				screw_ie8: true 
+			}, //prod 
+			comments: false //prod 
+
+		})
+		//new webpack.optimize.OccurrenceOrderPlugin()
     ],
+    htmlLoader: { 
+    	minimize: true, 
+    	removeAttributeQuotes: false, 
+    	caseSensitive: true, 
+    	customAttrSurround: [ 
+		[/#/, /(?:)/], 
+		[/\*/, /(?:)/], 
+		[/\[?\(?/, /(?:)/] 
+    	], 
+    	customAttrAssign: [/\)?\]?=/] 
+    },
     devServer: {
         port: 8080,
         historyApiFallback: true
