@@ -112,8 +112,8 @@ export class ScanComponent {
 			this.stopStream();
 			console.log(value);
 			var participantId = this.getParameterByName(value, "id");
-			//participantId = "570741e31ba1aba3b923ffa5";
-			var eventId = "";
+			//participantId = "5723263e1ba1aba3b9249835";
+			var eventId = "570741fc1ba1aba3b9240001";
 
 			this.cdHttpService.post("/api/participants/" + participantId + "/checkin/" + eventId,
 				"").subscribe(
