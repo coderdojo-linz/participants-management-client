@@ -1,11 +1,12 @@
 ﻿import {Component, NgZone} from "angular2/core";
 import {NgClass} from "angular2/common";
 import {CDHttpService} from "./../http/cdhttp.service.ts";
+import {DataService, CoderDojoEvent} from "./../data/data.service.ts";
 
 @Component({
     template: require("./scan.component.html"),
 	styles: [require("./scan.component.scss")],
-	providers: [CDHttpService],
+	providers: [CDHttpService, DataService],
 	directives: [NgClass]
 })
 export class ScanComponent {
@@ -14,6 +15,8 @@ export class ScanComponent {
 	public points: number = 0;
 	public newCheckin: boolean = false;
 	public hasError: boolean = false;
+	public events: CoderDojoEvent[] = [];
+	public selectedEvent: string;
 
 	private video: any;
 	private canvas: any;
@@ -24,7 +27,9 @@ export class ScanComponent {
 	private height: number;
 	private scanRunning: boolean = false;
 
-	constructor(private _ngZone: NgZone, private cdHttpService: CDHttpService) { }
+	constructor(private _ngZone: NgZone, private dataService: DataService, private cdHttpService: CDHttpService) {
+		this.loadEvents();
+	}
 
 	ngAfterViewInit() {
 		this.canvas = <any>document.getElementById("qr-canvas");
@@ -60,6 +65,7 @@ export class ScanComponent {
 					(<any>window).stream = localMediaStream;
 					this.video = <any>document.querySelector("video");
 					this.video.src = window.URL.createObjectURL(localMediaStream);
+					this.video.play();
 
 					//this.width = this.video.videoWidth * this.scale;
 					//this.height = this.video.videoHeight * this.scale;
@@ -112,8 +118,7 @@ export class ScanComponent {
 			this.stopStream();
 			console.log(value);
 			var participantId = this.getParameterByName(value, "id");
-			//participantId = "5723263e1ba1aba3b9249835";
-			var eventId = "570741fc1ba1aba3b9240001";
+			var eventId = this.selectedEvent;
 
 			this.cdHttpService.post("/api/participants/" + participantId + "/checkin/" + eventId,
 				"").subscribe(
@@ -137,5 +142,14 @@ export class ScanComponent {
 	private getParameterByName(url, name) {
 		var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);
 		return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+	}
+
+	private loadEvents() {
+		this.dataService.getEvents()
+			.subscribe(data => this.events = data,
+			error => console.error(error),
+			() => {
+				this.selectedEvent = this.events.filter((event: CoderDojoEvent) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
+			});
 	}
 }

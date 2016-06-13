@@ -1,5 +1,6 @@
 ﻿import {Injectable} from "angular2/core";
 import {Headers} from "angular2/http";
+import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
 
 @Injectable()
 export class AuthenticationService {
@@ -9,6 +10,9 @@ export class AuthenticationService {
 	private responseTypes = "token id_token";
 	private resolveLogin: any;
 	private rejectLogin: any;
+
+	constructor(private router: Router) {
+	}
 
 	public login() {
 		// TODO: check if user is already signed in
@@ -35,7 +39,7 @@ export class AuthenticationService {
 		}
 	}
 
-	private authorize(immediate: boolean) {
+	public authorize(immediate: boolean) {
 		gapi.auth.authorize(
 			{ client_id: this.clientId, scope: this.scopes, immediate: immediate, response_type: this.responseTypes },
 			(authResult: any) => {
@@ -44,12 +48,22 @@ export class AuthenticationService {
 				} else {
 					if (immediate) {
 						console.log("no immediate authentication");
-						this.authorize(false);
+						this.router.navigate(["Login"]);
+						//this.authorize(false);
 					} else {
 						alert("authentication failed");
 						this.rejectLogin();
 					}
 				}
 			});
+	}
+
+	public isLoggedIn(): boolean {
+		if (gapi.auth) {
+			var token = <any>gapi.auth.getToken();
+			return token != null;
+		}
+
+		return false;
 	}
 }

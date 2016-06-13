@@ -1,17 +1,21 @@
 {
   "name": "participants-management-client",
   "version": "0.1.0",
-  "scripts": {
-    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
-    "typings": "typings",
-    "postinstall": "typings install"
-  },
-  "license": "ISC",
+	"scripts": {
+		"start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
+		"tsc": "tsc",
+		"tsc:w": "tsc -w",
+		"lite": "lite-server",
+		"typings": "typings",
+		"postinstall": "typings install",
+		"server:dev": "webpack-dev-server -dev",
+		"server:prod": "webpack-dev-server -prod",
+		"build:dev": "webpack -dev",
+		"build:prod": "webpack -prod"
+	},
+	"license": "ISC",
   "dependencies": {
-    "angular2": "2.0.0-beta.15",
+    "angular2": "2.0.0-beta.17",
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
     "es6-promise": "^3.0.2",

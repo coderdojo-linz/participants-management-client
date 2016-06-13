@@ -1,11 +1,12 @@
 ﻿import {Component, Input, OnChanges, SimpleChange} from "angular2/core";
 import {CDHttpService} from "./../http/cdhttp.service.ts";
+import {DataService, CoderDojoEvent} from "./../data/data.service.ts";
 import "rxjs/Rx";
 
 @Component({
     template: require("./participants.component.html"),
 	styles: [require("./participants.component.scss")],
-	providers: [CDHttpService]
+	providers: [CDHttpService, DataService]
 })
 export class ParticipantsComponent {
 	public events: CoderDojoEvent[] = [];
@@ -14,7 +15,7 @@ export class ParticipantsComponent {
 	public numberOfNotebooks: number = 0;
 	public numberOfCheckedInParticipants: number = 0;
 	
-	constructor( private cdHttpService: CDHttpService) {
+	constructor(private cdHttpService: CDHttpService, private dataService: DataService) {
 		this.loadEvents();
 	}
 
@@ -50,23 +51,7 @@ export class ParticipantsComponent {
 	}
 
 	private loadEvents() {
-		var datePattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-		this.cdHttpService.get("/api/events?past=true")
-			.map(data => data.json())
-			.map(data => {
-				var arrayData = <any[]>data;
-				arrayData.forEach(item => {
-					Object.getOwnPropertyNames(item).forEach((property, index, array) => {
-						if (typeof item[property] == "string") {
-							if ((<string>item[property]).match(datePattern)) {
-								item[property] = Date.parse(item[property]);
-							}
-						}
-					});
-				});
-
-				return arrayData;
-			})
+		this.dataService.getEvents()
 			.subscribe(data => this.events = data,
 			error => console.error(error),
 			() => {
@@ -74,12 +59,6 @@ export class ParticipantsComponent {
 				this.loadParticipants();
 			});
 	}
-}
-
-export interface CoderDojoEvent {
-	_id: string;
-	location: string;
-	date: string;
 }
 
 export interface Registrations {

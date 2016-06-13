@@ -5,7 +5,6 @@ import {AuthenticationService} from "./../authentication/authentication.service.
 
 @Injectable()
 export class CDHttpService {
-	//private serviceUrl: string = "http://192.168.1.159:1337";
 	private serviceUrl: string = "https://participants-management-api.azurewebsites.net";
 
 	constructor(private http: Http, private authenticationService: AuthenticationService) {

@@ -1,19 +1,20 @@
 ﻿require("file?name=google-client.js!./../../components/google/google-client.js");
 require("bootstrap-loader");
 import {Component} from "angular2/core";
-import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
+import {Router, RouteConfig, RouterLink} from "angular2/router";
 import {LoginComponent} from "./login/login.component";
 import {ParticipantsComponent} from "./participants/participants.component";
 import {ScanComponent} from "./scan/scan.component";
 import {SetPinComponent} from "./set-pin/set-pin.component";
 import {ImportComponent} from "./import/import.component";
 import {AuthenticationService} from "./authentication/authentication.service.ts";
+import {LoggedInRouterOutlet} from "./authentication/loggedinrouteroutlet.component.ts";
 
 @Component({
     selector: "coder-dojo-app",
     template: require("./app.component.html"),
 	styles: [require("./app.component.scss")],
-	directives: [RouterOutlet, RouterLink, ROUTER_DIRECTIVES],
+	directives: [LoggedInRouterOutlet, RouterLink],
 	providers: [AuthenticationService]
 })
 @RouteConfig([
