@@ -95,8 +95,9 @@ export class ScanComponent {
 		window.clearInterval(this.captureJob);
 
 		if ((<any>window).stream) {
-			var track = (<any>window).stream.getTracks()[0];
-			track.stop();
+			(<any>window).stream.getTracks().forEach(track => {
+				track.stop();
+			});
 			this.video.src = "";
 		}
 	}
@@ -135,6 +136,8 @@ export class ScanComponent {
 				error => {
 					this.hasError = true;
 					console.log(error);
+					this.stop();
+					this.start();
 				});
 		});
 	}

@@ -43,7 +43,6 @@ export class CDHttpService {
 
 	private handleError(error: any) {
 		let errMsg = error.message || "Server error";
-		alert(errMsg);
 		console.error(error);
 		return Observable.throw(errMsg);
 	}
