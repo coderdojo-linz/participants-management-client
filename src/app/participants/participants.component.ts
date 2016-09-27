@@ -1,4 +1,4 @@
-﻿import {Component, Input, OnChanges, SimpleChange} from "angular2/core";
+﻿import {Component, Input, OnChanges, SimpleChange} from "@angular/core";
 import {CDHttpService} from "./../http/cdhttp.service.ts";
 import {DataService, CoderDojoEvent} from "./../data/data.service.ts";
 import "rxjs/Rx";

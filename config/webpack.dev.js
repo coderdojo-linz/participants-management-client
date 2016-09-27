@@ -2,7 +2,8 @@
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: {
+	entry: {
+		"polyfills": "./src/polyfills.ts",
         "vendor": "./src/vendor.ts",
         "app": "./src/app/main.ts"
     },
@@ -16,7 +17,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.ts/, loaders: ["ts-loader"], exclude: /node_modules/ },
+            { test: /\.ts/, loaders: ["ts-loader", "angular2-template-loader"], exclude: /node_modules/ },
             { test: /\.scss$/, exclude: /node_modules/, loaders: ["raw-loader", "sass-loader"] },
             { test: /\.html$/, loader: "html-loader", exclude: ["src/index.html"] },
             { test: /\.css$/, loader: "style!css" },
@@ -33,7 +34,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({ filename: "index.html", template: "src/index.html", favicon: "src/favicon.ico" }),
-        new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor"] }),
+        new webpack.optimize.CommonsChunkPlugin({ name: ["app", "vendor", "polyfills"] }),
         new webpack.ProvidePlugin({ $: "jquery", jQuery: "jquery" }),
     ],
     htmlLoader: { 

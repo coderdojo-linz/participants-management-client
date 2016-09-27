@@ -1,6 +1,6 @@
-﻿import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES, ComponentInstruction} from "angular2/router";
+﻿import {Router, RouterOutlet, RouterOutletMap, RouterLink, ActivatedRoute} from "@angular/router";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";
-import {DynamicComponentLoader, ElementRef, OnDestroy, Directive, Attribute, ViewContainerRef} from "angular2/core";
+import {ElementRef, OnDestroy, Directive, Attribute, ViewContainerRef, ComponentFactoryResolver, Injector, ResolvedReflectiveProvider} from "@angular/core";
 
 @Directive({
 	selector: "router-outlet",
@@ -10,16 +10,16 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 	private parentRouter: Router;
 	private publicRoutes: string[];
 
-	constructor(_viewContainerRef: ViewContainerRef, _loader: DynamicComponentLoader, _parentRouter: Router, @Attribute("name") nameAttr: string, private authenticationService: AuthenticationService) {
-		super(_viewContainerRef, _loader, _parentRouter, nameAttr);
+	constructor(parentOutletMap: RouterOutletMap, location: ViewContainerRef, resolver: ComponentFactoryResolver, name: string, private authenticationService: AuthenticationService) {
+		super(parentOutletMap, location, resolver, name);
 
-		this.parentRouter = _parentRouter;
+		//this.parentRouter = parentOutletMap;
 		this.publicRoutes = ["login"];
 	}
 
-	public activate(instruction: ComponentInstruction) {
-		if (this.canActivate(instruction.urlPath)) {
-			return super.activate(instruction);
+	public activate(activatedRoute: ActivatedRoute, loadedResolver: ComponentFactoryResolver, loadedInjector: Injector, providers: ResolvedReflectiveProvider[], outletMap: RouterOutletMap) {
+		if (this.canActivate(activatedRoute.url)) {
+			return super.activate(activatedRoute, loadedResolver, loadedInjector, providers, outletMap);
 		}
 
 		this.parentRouter.navigate(["Login"]);

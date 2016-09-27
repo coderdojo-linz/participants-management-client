@@ -1,8 +1,8 @@
-﻿import {Component} from "angular2/core";
+﻿import {Component} from "@angular/core";
 import {AuthenticationService} from "./../authentication/authentication.service.ts";
 
 @Component({
-    template: require("./login.component.html"),
+    templateUrl: "./login.component.html",
 	providers: [AuthenticationService]
 })
 export class LoginComponent {

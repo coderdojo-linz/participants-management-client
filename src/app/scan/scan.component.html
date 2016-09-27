@@ -3,7 +3,7 @@
 		<div class="col-sm-12">
 			<h1>Registrieren</h1>
 			<select class="form-control" [(ngModel)]="selectedEvent">
-				<option *ngFor="#event of events" [value]="event._id">{{event.date | date}}</option>
+				<option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
 			</select>
 		</div>
 

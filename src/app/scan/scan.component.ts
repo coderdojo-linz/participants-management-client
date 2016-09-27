@@ -1,13 +1,13 @@
-﻿import {Component, NgZone} from "angular2/core";
-import {NgClass} from "angular2/common";
+﻿import {Component, NgZone} from "@angular/core";
+import {NgClass} from "@angular/common";
+import {Http, HttpModule} from "@angular/http";
 import {CDHttpService} from "./../http/cdhttp.service.ts";
 import {DataService, CoderDojoEvent} from "./../data/data.service.ts";
 
 @Component({
     template: require("./scan.component.html"),
 	styles: [require("./scan.component.scss")],
-	providers: [CDHttpService, DataService],
-	directives: [NgClass]
+	providers: [CDHttpService, DataService]
 })
 export class ScanComponent {
 	public id: number;

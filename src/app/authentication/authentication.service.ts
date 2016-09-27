@@ -1,6 +1,6 @@
-﻿import {Injectable} from "angular2/core";
-import {Headers} from "angular2/http";
-import {Router, RouteConfig, RouterOutlet, RouterLink, ROUTER_DIRECTIVES} from "angular2/router";
+﻿import {Injectable} from "@angular/core";
+import {Headers} from "@angular/http";
+import {Router, RouterOutlet, RouterLink} from "@angular/router";
 
 @Injectable()
 export class AuthenticationService {

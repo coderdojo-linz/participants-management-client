@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <h1>Teilnehmer</h1>
             <select class="form-control" [(ngModel)]="selectedEvent" (ngModelChange)="loadParticipants()">
-                <option *ngFor="#event of events" [value]="event._id">{{event.date | date}}</option>
+                <option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
             </select>
             <div class="alert alert-info">
                 <div class="row">
@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="#registration of registrations">
+                    <tr *ngFor="let registration of registrations">
 						<td>{{registration.participant.givenName}}</td>
                         <td>{{registration.participant.familyName}}</td>
 						<td class="text-center"><input type="checkbox" [checked]="registration.needsComputer ? 'checked' : ''" disabled></td>
