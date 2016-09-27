@@ -20,7 +20,7 @@ export class ParticipantsComponent {
 	}
 
 	public loadParticipants() {
-		this.cdHttpService.get("/api/events/" + this.selectedEvent + "/registrations")
+		this.cdHttpService.get("/api/events/" + this.selectedEvent + "/registrations?stats=true")
 			.map(data => data.json())
 			.subscribe(data => {
 				if (data) {

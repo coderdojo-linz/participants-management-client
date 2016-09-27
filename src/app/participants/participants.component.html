@@ -21,14 +21,16 @@
                         <th>Nachname</th>
 						<th>Notebook</th>
                         <th>Eingecheckt</th>
+						<th>Anzahl<br/>Check-in</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="#registration of registrations">
 						<td>{{registration.participant.givenName}}</td>
                         <td>{{registration.participant.familyName}}</td>
-						<td class=" text-center"><input type="checkbox" [checked]="registration.needsComputer ? 'checked' : ''" disabled></td>
-                        <td class=" text-center"><input type="checkbox" [checked]="registration.checkedin ? 'checked' : ''" disabled></td>
+						<td class="text-center"><input type="checkbox" [checked]="registration.needsComputer ? 'checked' : ''" disabled></td>
+                        <td class="text-center"><input type="checkbox" [checked]="registration.checkedin ? 'checked' : ''" disabled></td>
+						<td>{{registration.totalNumberOfCheckins}}</td>
                     </tr>
                 </tbody>
             </table>
