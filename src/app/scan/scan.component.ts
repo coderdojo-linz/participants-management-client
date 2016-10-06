@@ -67,8 +67,8 @@ export class ScanComponent {
 					this.video.src = window.URL.createObjectURL(localMediaStream);
 					this.video.play();
 
-					//this.width = this.video.videoWidth * this.scale;
-					//this.height = this.video.videoHeight * this.scale;
+					this.width = this.video.videoWidth * this.scale;
+					this.height = this.video.videoHeight * this.scale;
 					this.width = 320;
 					this.height = 240;
 
@@ -103,7 +103,6 @@ export class ScanComponent {
 	}
 
 	private capture() {
-		console.log("capture");
 		var qr_can = this.canvas.getContext("2d");
 		qr_can.drawImage(this.video, 0, 0, this.width, this.height);
 		try {
@@ -111,6 +110,11 @@ export class ScanComponent {
 		}
 		catch (err) {
 			console.log(err);
+		}
+
+		if (!(<any>window).stream.active) {
+			this.stop();
+			this.start();
 		}
 	}
 
@@ -142,9 +146,13 @@ export class ScanComponent {
 		});
 	}
 
-	private getParameterByName(url, name) {
-		var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);
-		return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+	private getParameterByName(url: string, name: string) {
+		if (url.indexOf("?") >= 0 || url.indexOf("&") >= 0) {
+			var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);
+			return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+		} else {
+			return url;
+		}
 	}
 
 	private loadEvents() {

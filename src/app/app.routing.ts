@@ -14,7 +14,7 @@ const appRoutes: Routes = [
 	{ path: "set-pin", component: SetPinComponent },
 	{ path: "import", component: ImportComponent },
 	// TODO: use other default page
-	{ path: "", redirectTo: "/scan", pathMatch: "full" }
+	{ path: "", redirectTo: "/set-pin", pathMatch: "full" }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

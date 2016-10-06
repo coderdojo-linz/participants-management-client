@@ -1,8 +1,15 @@
-﻿import "jquery";
+﻿require("file?name=google-client.js!./../components/google/google-client.js");
+require("bootstrap-loader");
+
+import "jquery";
+import "rxjs";
 import "@angular/platform-browser";
+import "@angular/common";
+import "@angular/forms"
 import "@angular/core";
 import "@angular/http";
-import "@angular/router"; 
+import "@angular/router";
+import "@angular/platform-browser-dynamic"; 
 
 import "./../components/jsqrcode-master/src/grid.js";
 import "./../components/jsqrcode-master/src/version.js";

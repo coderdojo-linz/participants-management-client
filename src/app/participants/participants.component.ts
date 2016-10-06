@@ -1,10 +1,11 @@
-﻿import {Component, Input, OnChanges, SimpleChange} from "@angular/core";
-import {CDHttpService} from "./../http/cdhttp.service.ts";
-import {DataService, CoderDojoEvent} from "./../data/data.service.ts";
+﻿import { Component, Input, OnChanges, SimpleChange } from "@angular/core";
+import { CDHttpService } from "./../http/cdhttp.service";
+import { DataService, CoderDojoEvent } from "./../data/data.service";
+import { GoogleChart } from "./../../../node_modules/angular2-google-chart/directives/angular2-google-chart.directive";
 import "rxjs/Rx";
 
 @Component({
-    template: require("./participants.component.html"),
+	template: require("./participants.component.html"),
 	styles: [require("./participants.component.scss")],
 	providers: [CDHttpService, DataService]
 })
@@ -14,7 +15,48 @@ export class ParticipantsComponent {
 	public registrations: Registrations[] = [];
 	public numberOfNotebooks: number = 0;
 	public numberOfCheckedInParticipants: number = 0;
-	
+
+	public bar_ChartData = [
+		["City", "2010 Population", "2000 Population"],
+		["New York City, NY", 8175000, 8008000],
+		["Los Angeles, CA", 3792000, 3694000],
+		["Chicago, IL", 2695000, 2896000],
+		["Houston, TX", 2099000, 1953000],
+		["Philadelphia, PA", 1526000, 1517000]];
+
+	public bar_ChartOptions = {
+		title: "Population of Largest U.S. Cities",
+		height: 300,
+		chartArea: { width: "50%" },
+		hAxis: {
+			title: "Total Population",
+			minValue: 0,
+			textStyle: {
+				bold: true,
+				fontSize: 12,
+				color: "#4d4d4d"
+			},
+			titleTextStyle: {
+				bold: true,
+				fontSize: 18,
+				color: "#4d4d4d"
+			}
+		},
+		vAxis: {
+			title: "City",
+			textStyle: {
+				fontSize: 14,
+				bold: true,
+				color: "#848484"
+			},
+			titleTextStyle: {
+				fontSize: 14,
+				bold: true,
+				color: "#848484"
+			}
+		}
+	};
+
 	constructor(private cdHttpService: CDHttpService, private dataService: DataService) {
 		this.loadEvents();
 	}

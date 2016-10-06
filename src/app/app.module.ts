@@ -14,7 +14,7 @@ import { routing } from "./app.routing";
 @NgModule({
 	imports: [
 		BrowserModule,
-		FormsModule
+		FormsModule,
 		HttpModule,
 		routing
 	],
