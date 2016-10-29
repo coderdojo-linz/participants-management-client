@@ -12,7 +12,7 @@
 				<!-- do not delete src="" -->
 				<div class="video-content"><video autoplay=""></video></div>
 
-				<button class="btn btn-success btn-lg scan-button" (click)="toggleScan()" [ngClass]="{'scan-button-active': scanRunning}">
+				<button class="btn btn-info btn-lg scan-button" (click)="toggleScan()" [ngClass]="{'scan-button-active': scanRunning}">
 					<span [hidden]="scanRunning" class="glyphicon glyphicon-play" aria-hidden="true"></span>
 					<span [hidden]="!scanRunning" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
 				</button>
@@ -34,21 +34,20 @@
 					<div class="col-sm-6 col-md-8">
 						<h1>Hallo {{firstname}}!</h1>
 
-						<p [hidden]="points > 1">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
-						<p [hidden]="points == 1 || points == 5">Sch&ouml;n, dass du wieder dabei bist!</p>
-						<p [hidden]="points != 5">Gratuliere! Du hast heute 5 Punkte erreicht.</p>
+						<p class="lead" [hidden]="points > 1">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
+						<p class="lead" [hidden]="points == 1 || points == 5">Sch&ouml;n, dass du wieder dabei bist!</p>
 
-						<button class="btn btn-success btn-lg" type="button">
-							CoderDojo Punkte&nbsp;&nbsp;&nbsp;<span class="badge">{{points}}</span>
-						</button>
+						<p class="lead" [hidden]="points != 5">Gratuliere! Du hast heute 5 Punkte erreicht.</p>
+						<p [hidden]="points != 5">Du darfst dir bei den Mentoren ein kleines Geschenk abholen.</p>
 					</div>
-					<div class="col-sm-6 col-md-4">
-						<img class="center-block" src="/src/app/scan/coder-dojo-sticker.png" />
+					<div class="col-sm-6 col-md-4 points">
+						<div><div>{{points}}</div></div>
+						<p class="text-center">CoderDojo Punkte</p>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-info btn-lg btn-block" data-dismiss="modal">Close</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

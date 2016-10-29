@@ -36,7 +36,7 @@ export class ScanComponent {
 		(<any>window).qrcode.callback = (value: string) => this.read(value);
 
 		(<any>$("#welcomeDialog")).on("hidden.bs.modal", (e) => {
-			this.scanRunning = false;
+			this.start();
 		});
 	}
 
@@ -80,7 +80,7 @@ export class ScanComponent {
 					this.captureJob = window.setInterval(() => this.capture(), 1000);
 					this._ngZone.run(() => { this.scanRunning = true; });
 				},
-				(error) => alert("Camera rejected"));
+				(error) => console.log("Camera rejected"));
 		} else {
 			alert("Camara not supported");
 		}
@@ -112,7 +112,7 @@ export class ScanComponent {
 			console.log(err);
 		}
 
-		if (!(<any>window).stream.active) {
+		if (!(<any>window).stream.active && this.scanRunning) {
 			this.stop();
 			this.start();
 		}
@@ -134,14 +134,15 @@ export class ScanComponent {
 					this.newCheckin = result.newCheckin;
 					this.firstname = result.givenName;
 
+					this.stop();
 					var options = {};
 					(<any>$("#welcomeDialog")).modal(options);
 				},
 				error => {
 					this.hasError = true;
 					console.log(error);
-					this.stop();
-					this.start();
+					//this.stop();
+					//this.start();
 				});
 		});
 	}

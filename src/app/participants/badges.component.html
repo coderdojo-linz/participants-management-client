@@ -1,0 +1,19 @@
+﻿<div class="cd-badges">
+	<div *ngFor="let registration of registrations; let i = index" class="cd-badge">
+		<div class="cd-badge-header" [class.yellow]="registration.totalNumberOfCheckins >= 4" [class.orange]="registration.totalNumberOfCheckins >= 9">
+			<img src="/src/app/participants/coder-dojo-logo.png" />
+			<div class="cd-badge-center"></div>
+		</div>
+		<div class="cd-badge-qrcode">
+			<img src="http://chart.googleapis.com/chart?cht=qr&chs=125x125&chld=M|0&chl={{registration.participant.id}}" />
+		</div>
+		<div class="cd-badge-name">
+			<div>{{registration.participant.givenName}}</div>
+			<div>{{registration.participant.familyName}}</div>
+			<div>
+				<span [hidden]="!registration.totalNumberOfCheckins">{{registration.totalNumberOfCheckins + 1}} CoderDojo Punkte</span>
+				<span [hidden]="registration.totalNumberOfCheckins">1 CoderDojo Punkt</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,82 @@
+﻿.cd-badges {
+	width: 18cm;
+	margin-right: auto;
+	margin-left: auto;
+	font-family: "Segoe UI";
+
+	* {
+		box-sizing: border-box;
+	}
+
+	.cd-badge {
+		width: 9cm;
+		height: 6cm;
+		border: 1px solid #ddd;
+		display: inline-block;
+		position: relative;
+
+		&:nth-child(even) {
+			border-left: none;
+		}
+
+		.cd-badge-header {
+			width: 100%;
+			height: 1.8cm;
+			background-color: #ddd!important;
+			background-repeat: no-repeat;
+			background-position: left center;
+			position: relative;
+
+			&.yellow {
+				background-color: #ffeb38!important;
+			}
+
+			&.orange {
+				background-color: #ff9800!important;
+			}
+
+			img {
+				height: 0.8cm;
+				top: 0.5cm;
+				left: 0.5cm;
+				position: absolute;
+			}
+
+			.cd-badge-center {
+				width: 2px;
+				height: 2px;
+				background-color: #666!important;
+				position: absolute;
+				left: 4.5cm;
+				top: 0.9cm;
+			}
+		}
+
+		.cd-badge-qrcode {
+			position: absolute;
+			top: 2.2cm;
+			left: 0.5cm;
+			width: 3.5cm;
+			height: 3.2cm;
+		}
+
+		.cd-badge-name {
+			position: absolute;
+			top: 3cm;
+			left: 4.5cm;
+			width: 4.5cm;
+			text-align: center;
+			font-size: 16px;
+
+			> div:first-child {
+				font-size: 26px;
+				font-weight: 500;
+			}
+
+			> div:nth-of-type(3) {
+				margin-top: 20px;
+				font-size: 10px;
+			}
+		}
+	}
+}
