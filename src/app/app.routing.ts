@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { LoginComponent } from "./login/login.component";
 import { ParticipantsComponent } from "./participants/participants.component";
+import { ParticipantsPointsComponent } from "./participants/participantsPoints.component";
 import { BadgesComponent } from "./participants/badges.component";
 import { ScanComponent } from "./scan/scan.component";
 import { SetPinComponent } from "./set-pin/set-pin.component";
@@ -11,6 +12,7 @@ import { ImportComponent } from "./import/import.component";
 const appRoutes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "participants", component: ParticipantsComponent },
+	{ path: "participants-points", component: ParticipantsPointsComponent },
 	{ path: "scan", component: ScanComponent },
 	{ path: "badges", component: BadgesComponent },
 	{ path: "set-pin", component: SetPinComponent },

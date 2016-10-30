@@ -1,0 +1,32 @@
+﻿<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Teilnehmer</h1>
+			<div class="alert alert-info">
+				<div class="row">
+					<div class="col-xs-6 col-sm-3"><input [(ngModel)]="checkinLimit" /></div>
+					<div class="col-xs-6 col-sm-3"><button (click)="loadParticipants()" class="btn btn-primary btn-block">Aktualisieren</button></div>
+					<div class="col-xs-12 col-sm-6 cd-badge"><span class="badge">{{registrations.length}}</span> Teilnehmer</div>
+				</div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Vorname</th>
+						<th>Nachname</th>
+						<th>Email</th>
+						<th>Anzahl Check-ins</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let registration of registrations">
+						<td>{{registration.givenName}}</td>
+						<td>{{registration.familyName}}</td>
+						<td>{{registration.email}}</td>
+						<td>{{registration.totalNumberOfCheckins}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
