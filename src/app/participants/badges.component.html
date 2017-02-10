@@ -1,26 +1,34 @@
 ﻿<div class="cd-badges">
-	<template ngFor let-registration [ngForOf]="registrations" let-i="index">
-		<div class="cd-badge">
-			<div class="cd-badge-header"
-				 [class.yellow]="registration.totalNumberOfCheckins >= 4"
-				 [class.orange]="registration.totalNumberOfCheckins >= 9"
-				 [class.green]="registration.totalNumberOfCheckins >= 14">
-				<img src="/src/app/participants/coder-dojo-logo.png" />
-				<div class="cd-badge-center"></div>
-			</div>
-			<div class="cd-badge-qrcode">
-				<img src="http://chart.googleapis.com/chart?cht=qr&chs=125x125&chld=M|0&chl={{registration.participant.id}}" />
-			</div>
-			<div class="cd-badge-name">
-				<div>{{registration.participant.givenName}}</div>
-				<div>{{registration.participant.familyName}}</div>
-				<div>
-					<span [hidden]="!registration.totalNumberOfCheckins">{{registration.totalNumberOfCheckins + 1}} CoderDojo Punkte</span>
-					<span [hidden]="registration.totalNumberOfCheckins">1 CoderDojo Punkt</span>
+	<template ngFor let-page [ngForOf]="badgePages" let-i="index">
+		<div class="cd-badge-page">
+			<template ngFor let-registration [ngForOf]="page.registrations" let-i="index">
+				<div class="cd-badge" *ngIf="registration.markerText">
+					<div class="cd-badge-marker">{{registration.markerText}}</div>
+					<div class="cd-badge-marker-arrow"><span class="glyphicon glyphicon-arrow-down"></span></div>
 				</div>
-			</div>
+
+				<div class="cd-badge" *ngIf="registration.participant">
+					<div class="cd-badge-header"
+						[class.yellow]="registration.totalNumberOfCheckins >= 4"
+						[class.orange]="registration.totalNumberOfCheckins >= 9"
+						[class.green]="registration.totalNumberOfCheckins >= 14">
+						<img src="/src/app/participants/coder-dojo-logo.png" />
+						<div class="cd-badge-center"></div>
+					</div>
+					<div class="cd-badge-qrcode">
+						<img src="http://chart.googleapis.com/chart?cht=qr&chs=125x125&chld=M|0&chl={{registration.participant.id}}" />
+					</div>
+					<div class="cd-badge-name">
+						<div>{{registration.participant.givenName}}</div>
+						<div>{{registration.participant.familyName}}</div>
+						<div>
+							<span [hidden]="!registration.totalNumberOfCheckins">{{registration.totalNumberOfCheckins + 1}} CoderDojo Punkte</span>
+							<span [hidden]="registration.totalNumberOfCheckins">1 CoderDojo Punkt</span>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="i % 8 == 7"></div>
+			</template>
 		</div>
-		<div *ngIf="i % 8 == 7"></div>
-		<div *ngIf="i % 8 == 7" class="cd-badge-pagebreak">&nbsp;</div>
 	</template>
 </div>

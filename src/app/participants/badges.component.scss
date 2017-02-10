@@ -10,6 +10,13 @@
 		box-sizing: border-box;
 	}
 
+	.cd-badge-page {
+		-webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+        page-break-inside: avoid; /* Firefox */
+        break-inside: avoid; /* IE 10+ */
+		padding-top: 20px;
+	}
+
 	.cd-badge {
 		width: 9cm;
 		height: 6cm;
@@ -19,6 +26,22 @@
 		margin-top: -6px;
 		page-break-inside: avoid;
 		-webkit-region-break-inside: avoid;
+
+		.cd-badge-marker {
+			line-height: 5cm;
+    		font-size: 56px;
+			text-align: center;
+			width: 100%;
+			position: absolute;
+		}
+		
+		.cd-badge-marker-arrow {
+			position: absolute;
+			bottom: 20px;
+			text-align: center;
+			width: 100%;
+			font-size: 47px;
+		}
 
 		&:nth-of-type(2n) {
 			margin-left: -4px;
@@ -96,6 +119,6 @@
 		page-break-after: always;
 		-webkit-break-after: always;
 		break-after: always;
-		height: 4cm;
+		height: 10px;
 	}
 }
