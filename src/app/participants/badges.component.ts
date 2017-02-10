@@ -32,7 +32,7 @@ export class BadgesComponent {
 			.map(data => data.json())
 			.subscribe(data => {
 				if (data) {
-					this.registrations = data;
+					this.registrations = data.sort((a, b) => a.participant.givenName.toLowerCase() > b.participant.givenName.toLowerCase());
 					this.numberOfNotebooks = this.registrations.filter(r => r.needsComputer).length;
 					this.numberOfCheckedInParticipants = this.registrations.filter(r => r.checkedin).length;
 				} else {
