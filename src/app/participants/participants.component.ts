@@ -1,110 +1,54 @@
-﻿import { Component, Input, OnChanges, SimpleChange } from "@angular/core";
-import { CDHttpService } from "./../http/cdhttp.service";
-import { DataService, CoderDojoEvent } from "./../data/data.service";
-import { GoogleChart } from "./../../../node_modules/angular2-google-chart/directives/angular2-google-chart.directive";
-import "rxjs/Rx";
+import { Component, OnInit } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
 
 @Component({
-	template: require("./participants.component.html"),
-	styles: [require("./participants.component.scss")],
-	providers: [CDHttpService, DataService]
+  selector: 'app-participants',
+  templateUrl: './participants.component.html',
+  styleUrls: ['./participants.component.css']
 })
-export class ParticipantsComponent {
-	public events: CoderDojoEvent[] = [];
-	public selectedEvent: string;
-	public registrations: Registrations[] = [];
-	public numberOfNotebooks: number = 0;
-	public numberOfCheckedInParticipants: number = 0;
+export class ParticipantsComponent implements OnInit {
+  public events: any[] = [];
+  public selectedEvent: string;
+  public registrations: any[] = [];
+  public numberOfNotebooks: number = 0;
+  public numberOfCheckedInParticipants: number = 0;
 
-	public bar_ChartData = [
-		["City", "2010 Population", "2000 Population"],
-		["New York City, NY", 8175000, 8008000],
-		["Los Angeles, CA", 3792000, 3694000],
-		["Chicago, IL", 2695000, 2896000],
-		["Houston, TX", 2099000, 1953000],
-		["Philadelphia, PA", 1526000, 1517000]];
+  constructor(private authHttp: AuthHttp) { }
 
-	public bar_ChartOptions = {
-		title: "Population of Largest U.S. Cities",
-		height: 300,
-		chartArea: { width: "50%" },
-		hAxis: {
-			title: "Total Population",
-			minValue: 0,
-			textStyle: {
-				bold: true,
-				fontSize: 12,
-				color: "#4d4d4d"
-			},
-			titleTextStyle: {
-				bold: true,
-				fontSize: 18,
-				color: "#4d4d4d"
-			}
-		},
-		vAxis: {
-			title: "City",
-			textStyle: {
-				fontSize: 14,
-				bold: true,
-				color: "#848484"
-			},
-			titleTextStyle: {
-				fontSize: 14,
-				bold: true,
-				color: "#848484"
-			}
-		}
-	};
+  ngOnInit() {
+    var datePattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
-	constructor(private cdHttpService: CDHttpService, private dataService: DataService) {
-		this.loadEvents();
-	}
+    this.authHttp.get("https://participants-management-api.azurewebsites.net/api/events?past=true")
+      .map(res => res.json())
+      .subscribe(
+      data => this.events = data,
+      error => console.log("error: " + error._body || error),
+      () => {
+        this.selectedEvent = this.events.filter((event: any) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
+        this.loadParticipants();
+      });
+  }
 
-	public loadParticipants() {
-		this.cdHttpService.get("/api/events/" + this.selectedEvent + "/registrations?stats=true")
-			.map(data => data.json())
-			.subscribe(data => {
-				if (data) {
-					this.registrations = data;
-					this.numberOfNotebooks = this.registrations.filter(r => r.needsComputer).length;
-					this.numberOfCheckedInParticipants = this.registrations.filter(r => r.checkedin).length;
-				} else {
-					this.registrations = [];
-					this.numberOfNotebooks = 0;
-					this.numberOfCheckedInParticipants = 0;
-				}
-			},
-			error => {
-				console.error(error);
-				this.registrations = [];
-				this.numberOfCheckedInParticipants = 0;
-			});
-	}
-
-	public loadParticipantsFromEventbrite() {
-		this.cdHttpService.post("/admin/eventbrite-sync", "")
-			.subscribe(data => {
-				this.loadParticipants();
-			},
-			error => {
-				console.error(error);
-			});
-	}
-
-	private loadEvents() {
-		this.dataService.getEvents()
-			.subscribe(data => this.events = data,
-			error => console.error(error),
-			() => {
-				this.selectedEvent = this.events.filter((event: CoderDojoEvent) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
-				this.loadParticipants();
-			});
-	}
-}
-
-export interface Registrations {
-	_id: string;
-	needsComputer: boolean;
-	checkedin: boolean;
+  loadParticipants() {
+    this.authHttp.get("https://participants-management-api.azurewebsites.net/api/events/" + this.selectedEvent + "/registrations?stats=true")
+      .map(data => data.json())
+      .subscribe(data => {
+        if (data) {
+          this.registrations = data;
+          this.numberOfNotebooks = this.registrations.filter(r => r.needsComputer).length;
+          this.numberOfCheckedInParticipants = this.registrations.filter(r => r.checkedin).length;
+        } else {
+          this.registrations = [];
+          this.numberOfNotebooks = 0;
+          this.numberOfCheckedInParticipants = 0;
+        }
+      },
+      error => {
+        console.error(error);
+        this.registrations = [];
+        this.numberOfCheckedInParticipants = 0;
+      });
+  }
 }

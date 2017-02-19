@@ -1,7 +1,0 @@
-{
-    "mongoConnection": {
-        "user": "member-management-web",
-        "password": "",
-        "authSource": "member-management"
-    }
-}

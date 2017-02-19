@@ -1,38 +1,38 @@
-﻿import { NgModule }       from "@angular/core";
-import { BrowserModule }  from "@angular/platform-browser";
-import { FormsModule }    from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import {Router, Routes, RouterModule} from '@angular/router';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
-import { AppComponent }        from "./app.component";
-import { LoginComponent } from "./login/login.component";
-import { ParticipantsComponent } from "./participants/participants.component";
-import { ParticipantsPointsComponent } from "./participants/participantsPoints.component";
-import { BadgesComponent } from "./participants/badges.component";
-import { ScanComponent } from "./scan/scan.component";
-import { SetPinComponent } from "./set-pin/set-pin.component";
-import { ImportComponent } from "./import/import.component";
-import { routing } from "./app.routing";
+import { AuthService } from './auth/auth.service';
+import { AuthGuardService } from './auth/auth-guard.service';
+import { AppComponent } from './app.component';
+import { ParticipantsComponent } from './participants/participants.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
-	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		routing
-	],
-	declarations: [
-		AppComponent,
-		LoginComponent,
-		ParticipantsComponent,
-		ParticipantsPointsComponent,
-		BadgesComponent,
-		ScanComponent,
-		SetPinComponent,
-		ImportComponent
-	],
-	providers: [
-	],
-	bootstrap: [ AppComponent ]
+  declarations: [
+    AppComponent,
+    ParticipantsComponent,
+    LoginComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot([
+      { path: '', component: ParticipantsComponent, canActivate: [AuthGuardService] },
+      { path: 'login', component: LoginComponent },
+      { path: 'participants', component: ParticipantsComponent, canActivate: [AuthGuardService] },
+      { path: '**', redirectTo: '' }
+    ])
+  ],
+  providers: [ 
+    AuthService,
+    AuthGuardService,
+    AUTH_PROVIDERS 
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
