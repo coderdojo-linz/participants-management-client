@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
-export class AuthService {
+export class AuthService { 
 	// Store profile object in auth class
 	userProfile: any;
 
 	constructor(private router: Router) {
+		// Set userProfile attribute of already saved profile
+    	this.userProfile = JSON.parse(localStorage.getItem('profile'));
 	}
 
 	public authenticated() {

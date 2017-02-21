@@ -1,0 +1,54 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Registrieren</h1>
+			<select class="form-control" [(ngModel)]="selectedEvent">
+				<option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
+			</select>
+		</div>
+
+		<div class="col-sm-12">
+			<div class="video-box">
+				<!-- do not delete src="" -->
+				<div class="video-content"><video autoplay=""></video></div>
+
+				<button class="btn btn-info btn-lg scan-button" (click)="toggleScan()" [ngClass]="{'scan-button-active': scanRunning}">
+					<span [hidden]="scanRunning" class="glyphicon glyphicon-play" aria-hidden="true"></span>
+					<span [hidden]="!scanRunning" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+				</button>
+			</div>
+			<canvas id="qr-canvas"></canvas>
+		</div>
+	</div>
+</div>
+
+<div id="welcomeDialog" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Willkommen beim CoderDojo Linz</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6 col-md-8">
+						<h1>Hallo {{firstname}}!</h1>
+
+						<p class="lead" [hidden]="points > 1">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
+						<p class="lead" [hidden]="points == 1 || points == 5">Sch&ouml;n, dass du wieder dabei bist!</p>
+
+						<p class="lead" [hidden]="points != 5">Gratuliere! Du hast heute 5 Punkte erreicht.</p>
+						<p [hidden]="points != 5">Du darfst dir bei den Mentoren ein kleines Geschenk abholen.</p>
+					</div>
+					<div class="col-sm-6 col-md-4 points">
+						<div><div>{{points}}</div></div>
+						<p class="text-center">CoderDojo Punkte</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info btn-lg btn-block" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

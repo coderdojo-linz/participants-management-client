@@ -1,4 +1,4 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded" *ngIf="auth.authenticated()">
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse" *ngIf="auth.authenticated()">
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
 		aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -8,20 +8,23 @@
 
 	<div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
+			<li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/scan']">Scan</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['active']">
 				<a class="nav-link" [routerLink]="['/participants']">Participants</a>
 			</li>
 		</ul>
 
-		<div>
-			<span class="navbar-text" *ngIf="auth.userProfile">
-				{{auth.userProfile.name}}
-			</span>
-			<span class="navbar-text">
-				<button class="btn btn-primary btn-margin btn-sm" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
-			</span>
-		</div>
+		<span class="navbar-text cd-navbar-username" *ngIf="auth.userProfile">
+			{{auth.userProfile.name}}
+		</span>
+		<span class="navbar-text">
+			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
+		</span>
 	</div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="cd-content">
+	<router-outlet></router-outlet>
+</div>

@@ -21,9 +21,6 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authService: AuthService, private router: Router) {
-    // Set userProfile attribute of already saved profile
-    this.authService.userProfile = JSON.parse(localStorage.getItem('profile'));
-
     // Add callback for lock `authenticated` / 'hash_parsed' event
     this.lock.on('authenticated', (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);

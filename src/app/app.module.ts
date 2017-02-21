@@ -10,20 +10,23 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { AppComponent } from './app.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { LoginComponent } from './login/login.component';
+import { ScanComponent } from './scan/scan.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ParticipantsComponent,
-    LoginComponent
+    LoginComponent,
+    ScanComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: '', component: ParticipantsComponent, canActivate: [AuthGuardService] },
+      { path: '', component: ScanComponent, canActivate: [AuthGuardService] },
       { path: 'login', component: LoginComponent },
+      { path: 'scan', component: ScanComponent, canActivate: [AuthGuardService] },
       { path: 'participants', component: ParticipantsComponent, canActivate: [AuthGuardService] },
       { path: '**', redirectTo: '' }
     ])

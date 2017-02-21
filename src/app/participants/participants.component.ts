@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Component({
   selector: 'app-participants',
   templateUrl: './participants.component.html',
-  styleUrls: ['./participants.component.css']
+  styleUrls: ['./participants.component.scss']
 })
 export class ParticipantsComponent implements OnInit {
   public events: any[] = [];
