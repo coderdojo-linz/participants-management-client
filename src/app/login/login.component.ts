@@ -17,7 +17,12 @@ export class LoginComponent implements OnInit {
   lock = new Auth0Lock(environment.auth0ClientId, environment.auth0Domain, {
     container: 'login-container',
     rememberLastLogin: true,
-    language: 'de'
+    language: 'de',
+    auth: {
+      params: {
+        scope: 'openid roles'
+      }
+    }
   });
 
   constructor(private authService: AuthService, private router: Router) {

@@ -11,13 +11,16 @@ import { AppComponent } from './app.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { LoginComponent } from './login/login.component';
 import { ScanComponent } from './scan/scan.component';
+import { BadgesComponent } from './badges/badges.component';
+import { DataService } from './data/data.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ParticipantsComponent,
     LoginComponent,
-    ScanComponent
+    ScanComponent,
+    BadgesComponent
   ],
   imports: [
     BrowserModule,
@@ -28,13 +31,15 @@ import { ScanComponent } from './scan/scan.component';
       { path: 'login', component: LoginComponent },
       { path: 'scan', component: ScanComponent, canActivate: [AuthGuardService] },
       { path: 'participants', component: ParticipantsComponent, canActivate: [AuthGuardService] },
+      { path: 'badges', component: BadgesComponent, canActivate: [AuthGuardService] },
       { path: '**', redirectTo: '' }
     ])
   ],
   providers: [ 
     AuthService,
     AuthGuardService,
-    AUTH_PROVIDERS 
+    AUTH_PROVIDERS,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

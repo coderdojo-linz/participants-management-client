@@ -4,7 +4,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<a class="navbar-brand" [routerLink]="['/participants']">CoderDojo Linz</a>
+	<a class="navbar-brand" [routerLink]="['/participants']"><img src="../assets/coder-dojo-logo-inv.svg" width="20" /> CoderDojo Linz</a>
 
 	<div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav mr-auto">
@@ -13,6 +13,9 @@
 			</li>
 			<li class="nav-item" [routerLinkActive]="['active']">
 				<a class="nav-link" [routerLink]="['/participants']">Participants</a>
+			</li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/badges']">Badges</a>
 			</li>
 		</ul>
 

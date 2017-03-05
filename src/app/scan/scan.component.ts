@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from "rxjs/Observable";
+import { DataService, CoderDojoEvent } from './../data/data.service';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -26,7 +27,7 @@ export class ScanComponent implements OnInit {
   private height: number;
   private scanRunning: boolean = false;
 
-  constructor(private authHttp: AuthHttp, private _ngZone: NgZone) { }
+  constructor(private authHttp: AuthHttp, private dataService: DataService, private _ngZone: NgZone) { }
 
   ngOnInit() {
     this.loadEvents();
@@ -145,8 +146,7 @@ export class ScanComponent implements OnInit {
 	}
 
   private loadEvents() {
-    this.authHttp.get("https://participants-management-api.azurewebsites.net/api/events?past=true")
-      .map(res => res.json())
+    this.dataService.getEvents()
       .subscribe(
       data => this.events = data,
       error => console.log("error: " + error._body || error),
