@@ -6,6 +6,7 @@
 
 # dependencies
 /node_modules
+/queries/node_modules
 
 # IDEs and editors
 /.idea
@@ -30,6 +31,7 @@
 npm-debug.log
 testem.log
 /typings
+/queries/config/default.json
 
 # e2e
 /e2e/*.js
