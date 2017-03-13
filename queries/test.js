@@ -16,7 +16,7 @@ MongoClient.connect(url, function (err, db) {
     } else {
         // get checked in participants
         var registrations = db.collection('registrations');
-        var dates = [new Date('2017-01-13 00:00:00.000Z'), new Date('2017-01-27 00:00:00.000Z'), new Date('2017-02-10 00:00:00.000Z')];
+        var dates = [new Date('2017-01-27 00:00:00.000Z'), new Date('2017-02-10 00:00:00.000Z'), new Date('2017-03-03 00:00:00.000Z')];
 
         registrations.find({'event.date': {$in: dates}, 'checkedin': true }, {'participant.id': 1}).toArray().then(function (docs) {
             if (err) {
