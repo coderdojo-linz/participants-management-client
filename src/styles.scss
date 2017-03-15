@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+$info-color: #B2EBF2;
+$button-color: #00BCD4;
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+}
+
+.alert-info {
+    margin-top: 10px;
+    background-color: $info-color;
+}
+
+.btn-info {
+    background-color: $button-color;
+    border-collapse: $button-color;
+}

@@ -4,36 +4,39 @@ import { Observable } from "rxjs/Observable";
 import { DataService, CoderDojoEvent } from './../data/data.service';
 import 'rxjs/add/operator/map';
 
+declare var $: any;
+
 @Component({
-  selector: 'app-scan',
-  templateUrl: './scan.component.html',
-  styleUrls: ['./scan.component.scss']
+	selector: 'app-scan',
+	templateUrl: './scan.component.html',
+	styleUrls: ['./scan.component.scss']
 })
 export class ScanComponent implements OnInit {
-  public id: number;
-  public firstname: string = "";
-  public points: number = 0;
-  public newCheckin: boolean = false;
-  public hasError: boolean = false;
-  public events: any[] = [];
-  public selectedEvent: string;
+	public id: number;
+	public firstname: string = "";
+	public points: number = 0;
+	public newCheckin: boolean = false;
+	public hasError: boolean = false;
+	public events: any[] = [];
+	public selectedEvent: string;
+	public status: string;
 
-  private video: any;
-  private canvas: any;
-  private constraints = { audio: false, video: true };
-  private captureJob: number;
-  private scale: number = 0.5;
-  private width: number;
-  private height: number;
-  private scanRunning: boolean = false;
+	private video: any;
+	private canvas: any;
+	private constraints = { audio: false, video: true };
+	private captureJob: number;
+	private scale: number = 0.5;
+	private width: number;
+	private height: number;
+	private scanRunning: boolean = false;
 
-  constructor(private authHttp: AuthHttp, private dataService: DataService, private _ngZone: NgZone) { }
+	constructor(private authHttp: AuthHttp, private dataService: DataService, private _ngZone: NgZone) { }
 
-  ngOnInit() {
-    this.loadEvents();
-  }
+	ngOnInit() {
+		this.loadEvents();
+	}
 
-  private toggleScan() {
+	private toggleScan() {
 		if (this.scanRunning) {
 			this.stop();
 		} else {
@@ -44,6 +47,7 @@ export class ScanComponent implements OnInit {
 	private start() {
 		this.firstname = "";
 		this.hasError = false;
+		this.status = "Badge scannen ...";
 
 		var navigator = (<any>window.navigator);
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -61,15 +65,19 @@ export class ScanComponent implements OnInit {
 					this.width = 320;
 					this.height = 240;
 
-					// this.canvas.style.width = this.width + "px";
-					// this.canvas.style.height = this.height + "px";
-					// this.canvas.width = this.width;
-					// this.canvas.height = this.height;
+					this.canvas = $("canvas")[0];
+					this.canvas.style.width = this.width + "px";
+					this.canvas.style.height = this.height + "px";
+					this.canvas.width = this.width;
+					this.canvas.height = this.height;
 
-					//this.captureJob = window.setInterval(() => this.capture(), 1000);
+					this.captureJob = window.setInterval(() => this.capture(), 1000);
 					this._ngZone.run(() => { this.scanRunning = true; });
 				},
-				(error) => console.log("Camera rejected"));
+				(error) => {
+					console.log("Camera rejected");
+					this.status = "Camera rejected";
+				});
 		} else {
 			alert("Camara not supported");
 		}
@@ -78,6 +86,7 @@ export class ScanComponent implements OnInit {
 	private stop() {
 		this.scanRunning = false;
 		this.stopStream();
+		this.status = "";
 	}
 
 	private stopStream() {
@@ -99,6 +108,7 @@ export class ScanComponent implements OnInit {
 		}
 		catch (err) {
 			console.log(err);
+			this.status = err.toString();
 		}
 
 		if (!(<any>window).stream.active && this.scanRunning) {
@@ -125,7 +135,7 @@ export class ScanComponent implements OnInit {
 
 					this.stop();
 					var options = {};
-					//(<any>$("#welcomeDialog")).modal(options);
+					(<any>$("#welcomeDialog")).modal(options);
 				},
 				error => {
 					this.hasError = true;
@@ -145,13 +155,13 @@ export class ScanComponent implements OnInit {
 		}
 	}
 
-  private loadEvents() {
-    this.dataService.getEvents()
-      .subscribe(
-      data => this.events = data,
-      error => console.log("error: " + error._body || error),
-      () => {
-        this.selectedEvent = this.events.filter((event: any) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id; 
-      });
-  }
+	private loadEvents() {
+		this.dataService.getEvents()
+			.subscribe(
+			data => this.events = data,
+			error => console.log("error: " + error._body || error),
+			() => {
+				this.selectedEvent = this.events.filter((event: any) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
+			});
+	}
 }
