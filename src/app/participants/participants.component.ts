@@ -51,4 +51,14 @@ export class ParticipantsComponent implements OnInit {
         this.numberOfCheckedInParticipants = 0;
       });
   }
+
+  public loadParticipantsFromEventbrite() {
+		this.authHttp.post('https://participants-management-api.azurewebsites.net/admin/eventbrite-sync', '')
+			.subscribe(data => {
+				this.loadParticipants();
+			},
+			error => {
+				console.error(error);
+			});
+	}
 }
