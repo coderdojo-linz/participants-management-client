@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 import { DataService, CoderDojoEvent } from './../data/data.service';
 import 'rxjs/add/operator/map';
 
@@ -13,7 +13,7 @@ declare var $: any;
 })
 export class ScanComponent implements OnInit {
 	public id: number;
-	public firstname: string = "";
+	public firstname: string = '';
 	public points: number = 0;
 	public newCheckin: boolean = false;
 	public hasError: boolean = false;
@@ -35,6 +35,15 @@ export class ScanComponent implements OnInit {
 	ngOnInit() {
 		this.loadEvents();
 	}
+	
+	ngAfterViewInit() {
+		this.canvas = <any>document.getElementById('qr-canvas');
+		(<any>window).qrcode.callback = (value: string) => this.read(value);
+
+		(<any>$('#welcomeDialog')).on('hidden.bs.modal', (e) => {
+			this.start();
+		});
+	}
 
 	private toggleScan() {
 		if (this.scanRunning) {
@@ -45,9 +54,9 @@ export class ScanComponent implements OnInit {
 	}
 
 	private start() {
-		this.firstname = "";
+		this.firstname = '';
 		this.hasError = false;
-		this.status = "Badge scannen ...";
+		this.status = 'Badge scannen ...';
 
 		var navigator = (<any>window.navigator);
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -56,7 +65,7 @@ export class ScanComponent implements OnInit {
 				this.constraints,
 				(localMediaStream) => {
 					(<any>window).stream = localMediaStream;
-					this.video = <any>document.querySelector("video");
+					this.video = <any>document.querySelector('video');
 					this.video.src = window.URL.createObjectURL(localMediaStream);
 					this.video.play();
 
@@ -65,9 +74,9 @@ export class ScanComponent implements OnInit {
 					this.width = 320;
 					this.height = 240;
 
-					this.canvas = $("canvas")[0];
-					this.canvas.style.width = this.width + "px";
-					this.canvas.style.height = this.height + "px";
+					this.canvas = $('canvas')[0];
+					this.canvas.style.width = this.width + 'px';
+					this.canvas.style.height = this.height + 'px';
 					this.canvas.width = this.width;
 					this.canvas.height = this.height;
 
@@ -75,18 +84,18 @@ export class ScanComponent implements OnInit {
 					this._ngZone.run(() => { this.scanRunning = true; });
 				},
 				(error) => {
-					console.log("Camera rejected");
-					this.status = "Camera rejected";
+					console.log('Camera rejected');
+					this.status = 'Camera rejected';
 				});
 		} else {
-			alert("Camara not supported");
+			alert('Camara not supported');
 		}
 	}
 
 	private stop() {
 		this.scanRunning = false;
 		this.stopStream();
-		this.status = "";
+		this.status = '';
 	}
 
 	private stopStream() {
@@ -96,12 +105,12 @@ export class ScanComponent implements OnInit {
 			(<any>window).stream.getTracks().forEach(track => {
 				track.stop();
 			});
-			this.video.src = "";
+			this.video.src = '';
 		}
 	}
 
 	private capture() {
-		var qr_can = this.canvas.getContext("2d");
+		var qr_can = this.canvas.getContext('2d');
 		qr_can.drawImage(this.video, 0, 0, this.width, this.height);
 		try {
 			(<any>window).qrcode.decode();
@@ -121,11 +130,11 @@ export class ScanComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.stopStream();
 			console.log(value);
-			var participantId = this.getParameterByName(value, "id");
+			var participantId = this.getParameterByName(value, 'id');
 			var eventId = this.selectedEvent;
 
-			this.authHttp.post("/api/participants/" + participantId + "/checkin/" + eventId,
-				"").subscribe(
+			this.authHttp.post('https://participants-management-api.azurewebsites.net/api/participants/' + participantId + '/checkin/' + eventId,
+				'').subscribe(
 				data => {
 					var result = data.json();
 
@@ -135,7 +144,7 @@ export class ScanComponent implements OnInit {
 
 					this.stop();
 					var options = {};
-					(<any>$("#welcomeDialog")).modal(options);
+					(<any>$('#welcomeDialog')).modal(options);
 				},
 				error => {
 					this.hasError = true;
@@ -147,9 +156,9 @@ export class ScanComponent implements OnInit {
 	}
 
 	private getParameterByName(url: string, name: string) {
-		if (url.indexOf("?") >= 0 || url.indexOf("&") >= 0) {
-			var match = RegExp("[?&]" + name + "=([^&]*)").exec(url);
-			return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+		if (url.indexOf('?') >= 0 || url.indexOf('&') >= 0) {
+			var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
+			return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 		} else {
 			return url;
 		}
@@ -159,7 +168,7 @@ export class ScanComponent implements OnInit {
 		this.dataService.getEvents()
 			.subscribe(
 			data => this.events = data,
-			error => console.log("error: " + error._body || error),
+			error => console.log('error: ' + error._body || error),
 			() => {
 				this.selectedEvent = this.events.filter((event: any) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
 			});

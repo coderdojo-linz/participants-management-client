@@ -4,14 +4,15 @@
 			<template ngFor let-registration [ngForOf]="page.registrations" let-i="index">
 				<div class="cd-badge" *ngIf="registration.markerText">
 					<div class="cd-badge-marker">{{registration.markerText}}</div>
-					<div class="cd-badge-marker-arrow"><span class="glyphicon glyphicon-arrow-down"></span></div>
+					<div class="cd-badge-marker-arrow"><span class="fa fa-arrow-circle-o-down"></span></div>
 				</div>
 
 				<div class="cd-badge" *ngIf="registration.participant">
 					<div class="cd-badge-header"
 						[class.yellow]="registration.totalNumberOfCheckins >= 4"
 						[class.orange]="registration.totalNumberOfCheckins >= 9"
-						[class.green]="registration.totalNumberOfCheckins >= 14">
+						[class.green]="registration.totalNumberOfCheckins >= 14"
+						[class.blue]="registration.totalNumberOfCheckins >= 19">
 						<img src="../../assets/coder-dojo-logo.svg" />
 						<div class="cd-badge-center"></div>
 					</div>
