@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DataService {
   private datePattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-  private url: string = 'https://participants-management-api.azurewebsites.net/api/';
+  private url: string = 'https://participants-management-service.azurewebsites.net/api/';
 
   constructor(private authHttp: AuthHttp) { }
 

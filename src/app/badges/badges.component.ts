@@ -72,7 +72,7 @@ export class BadgesComponent implements OnInit {
 	}
 
   private loadEvents() {
-    this.authHttp.get("https://participants-management-api.azurewebsites.net/api/events?past=true")
+    this.authHttp.get("https://participants-management-service.azurewebsites.net/api/events?past=true")
       .map(res => res.json())
       .subscribe(
       data => this.events = data,

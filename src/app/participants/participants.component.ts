@@ -32,7 +32,7 @@ export class ParticipantsComponent implements OnInit {
   }
 
   loadParticipants() {
-    this.authHttp.get('https://participants-management-api.azurewebsites.net/api/events/' + this.selectedEvent + '/registrations?stats=true')
+    this.authHttp.get('https://participants-management-service.azurewebsites.net/api/events/' + this.selectedEvent + '/registrations?stats=true')
       .map(data => data.json())
       .subscribe(data => {
         if (data) {
@@ -53,7 +53,7 @@ export class ParticipantsComponent implements OnInit {
   }
 
   public loadParticipantsFromEventbrite() {
-		this.authHttp.post('https://participants-management-api.azurewebsites.net/admin/eventbrite-sync', '')
+		this.authHttp.post('https://participants-management-service.azurewebsites.net/admin/eventbrite-sync', '')
 			.subscribe(data => {
 				this.loadParticipants();
 			},

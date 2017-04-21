@@ -133,7 +133,7 @@ export class ScanComponent implements OnInit {
 			var participantId = this.getParameterByName(value, 'id');
 			var eventId = this.selectedEvent;
 
-			this.authHttp.post('https://participants-management-api.azurewebsites.net/api/participants/' + participantId + '/checkin/' + eventId,
+			this.authHttp.post('https://participants-management-service.azurewebsites.net/api/participants/' + participantId + '/checkin/' + eventId,
 				'').subscribe(
 				data => {
 					var result = data.json();
