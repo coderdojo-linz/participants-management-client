@@ -1,4 +1,4 @@
-var speakers = ["Stropek", "Strasser", "Mayrbäurl", "Ehrenmüller-Jensen", "Ranzmaier", "Pollak", "Grahsl", "Hatahet", "Reiter", "Sereinig", "Oberleitner", "Wille", "Schacherl", "Steyer", "Wallisch", "Pohl", "Gutenbrunner", "Mausz", "Ahmed", "Schwarz"];
+var speakers = [];
 var participants = [
 {"Bestellnr.":620804703,"Bestelldatum":"2017-04-21 11:34:09+02:00","Vorname":"Nico","Nachname":"Haslberger","Ticketart":"Global Azure Bootcamp 2017","Teilnehmernummer":778268685,"Barcode-Nr.":"620804703778268685001","Teilnehmerstatus":"Nimmt teil"},
 {"Bestellnr.":620804703,"Bestelldatum":"2017-04-21 11:34:09+02:00","Vorname":"Gerhard","Nachname":"Gehrer","Ticketart":"Global Azure Bootcamp 2017","Teilnehmernummer":778268686,"Barcode-Nr.":"620804703778268686001","Teilnehmerstatus":"Nimmt teil"},
