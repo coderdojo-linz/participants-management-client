@@ -1,30 +1,33 @@
-﻿<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="">CoderDojo Linz</a>
-        </div>
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse" *ngIf="auth.authenticated()">
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a [routerLink]="['/scan']">Scannen</a></li>
-                <li><a [routerLink]="['/participants']">Teilnehmer</a></li>
-				<li><a [routerLink]="['/badges']">Badges</a></li>
-				<li><a [routerLink]="['/participants-points']">Punkte je Teilnehmer</a></li>
-                <!--<li class="active"><a [routerLink]="['SetPin']">Set Pin</a></li>
-                <li class="active"><a [routerLink]="['Import']">Import Coders</a></li>-->
-            </ul>
-            <!--<ul class="nav navbar-nav navbar-right">
-                <li><a [routerLink]="['Login']">Login</a></li>
-            </ul>-->
-        </div>
-    </div>
+	<a class="navbar-brand" [routerLink]="['/scan']"><img src="../assets/coder-dojo-logo-inv.svg" width="20" /> CoderDojo Linz</a>
+
+	<div class="collapse navbar-collapse" id="navbarText">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/scan']">Scan</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/participants']">Participants</a>
+			</li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/badges']">Badges</a>
+			</li>
+		</ul>
+
+		<span class="navbar-text cd-navbar-username" *ngIf="auth.userProfile">
+			{{auth.userProfile.name}}
+		</span>
+		<span class="navbar-text">
+			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
+		</span>
+	</div>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="cd-content">
+	<router-outlet></router-outlet>
+</div>

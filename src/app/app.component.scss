@@ -1,14 +1,19 @@
-﻿:host {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    min-height: 100vh;
-    font-family: Verdana;
-    font-size: 14px;
-	overflow-x: auto;
+.cd-navbar-username {
+    margin-right: 20px;
 }
 
-h1 {
-	font-size: 40px;
+.cd-content {
+    padding-top: 30px;
+}
+
+.navbar-brand {
+    img {
+        vertical-align: top;
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+}
+
+.navbar-text {
+    padding-top: 5px;
 }

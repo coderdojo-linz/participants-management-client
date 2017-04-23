@@ -1,4 +1,4 @@
-﻿<div class="container">
+<div class="container">
     <div class="row">
         <div class="col-sm-12">
             <h1>Teilnehmer</h1>
@@ -7,11 +7,11 @@
             </select>
             <div class="alert alert-info">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-2 text-center">Anmeldungen<br /><span class="badge">{{registrations.length}}</span></div>
-                    <div class="col-xs-4 col-sm-2 text-center">Notebooks<br /><span class="badge">{{numberOfNotebooks}}</span></div>
-                    <div class="col-xs-4 col-sm-2 text-center">Eingecheckt<br /><span class="badge">{{numberOfCheckedInParticipants}}</span></div>
-                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipants()" class="btn btn-primary btn-block">Aktualisieren</button></div>
-                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-primary btn-block">Eventbrite</button></div>
+                    <div class="col-xs-4 col-sm-2 text-center">Anmeldungen<br /><span class="badge badge-default">{{registrations.length}}</span></div>
+                    <div class="col-xs-4 col-sm-2 text-center">Notebooks<br /><span class="badge badge-default">{{numberOfNotebooks}}</span></div>
+                    <div class="col-xs-4 col-sm-2 text-center">Eingecheckt<br /><span class="badge badge-default">{{numberOfCheckedInParticipants}}</span></div>
+                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipants()" class="btn btn-secondary btn-block">Aktualisieren</button></div>
+                    <div class="col-xs-6 col-sm-3"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-secondary btn-block">Eventbrite</button></div>
                 </div>
             </div>
             <div>

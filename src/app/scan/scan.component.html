@@ -6,17 +6,17 @@
 				<option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
 			</select>
 		</div>
-
 		<div class="col-sm-12">
 			<div class="video-box">
 				<!-- do not delete src="" -->
 				<div class="video-content"><video autoplay=""></video></div>
 
 				<button class="btn btn-info btn-lg scan-button" (click)="toggleScan()" [ngClass]="{'scan-button-active': scanRunning}">
-					<span [hidden]="scanRunning" class="glyphicon glyphicon-play" aria-hidden="true"></span>
-					<span [hidden]="!scanRunning" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+					<i [hidden]="scanRunning" class="fa fa-play" aria-hidden="true"></i>
+					<i [hidden]="!scanRunning" class="fa fa-stop" aria-hidden="true"></i>
 				</button>
 			</div>
+			<div class="status">{{status}}</div>
 			<canvas id="qr-canvas"></canvas>
 		</div>
 	</div>
@@ -26,8 +26,8 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h4 class="modal-title"><small>CoderDojo Linz</small></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Willkommen beim CoderDojo Linz</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -35,7 +35,7 @@
 						<h1>Hallo {{firstname}}!</h1>
 
 						<p class="lead" [hidden]="points > 1">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
-						<p class="lead" [hidden]="points == 1 || points == 5">Sch&ouml;n, dass du wieder dabei bist!</p>
+						<p class="lead" [hidden]="points < 2 || points == 5">Sch&ouml;n, dass du wieder dabei bist!</p>
 
 						<p class="lead" [hidden]="points != 5">Gratuliere! Du hast heute 5 Punkte erreicht.</p>
 						<p [hidden]="points != 5">Du darfst dir bei den Mentoren ein kleines Geschenk abholen.</p>
