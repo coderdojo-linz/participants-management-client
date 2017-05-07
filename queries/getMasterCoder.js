@@ -16,47 +16,81 @@ MongoClient.connect(url, function (err, db) {
     } else {
         // get checked in participants
         var registrations = db.collection('registrations');
-        var dates = [new Date('2017-03-03 00:00:00.000Z'), new Date('2017-03-17 00:00:00.000Z'), new Date('2017-03-31 00:00:00.000Z')];
+        var dates = [new Date('2017-03-17 00:00:00.000Z'), new Date('2017-03-31 00:00:00.000Z'), new Date('2017-04-21 00:00:00.000Z')];
+        var nextDate = [new Date('2017-05-05 00:00:00.000Z')];
 
-        registrations.find({'event.date': {$in: dates}, 'checkedin': true }, {'participant.id': 1}).toArray().then(function (docs) {
+        // get email adress
+        var participantsCollection = db.collection('participants');
+        var promise = participantsCollection.find({}).toArray().then(function (participants) {
             if (err) {
                 console.log('Error: ' + err.toString());
-                db.close();
             } else {
-                console.log('Participants: ' + docs.length.toString());
+                var emailAdresses = {};
+                var participantNames = {};
 
-                var promises = [];
-                var emails = [];
-                docs.forEach(function (registration) {
-                    // get email adress
-                    var participants = db.collection('participants');
-                    var promise = participants.findOne({'_id': registration.participant.id }).then(function(doc) {
-                        if (err) {
-                            console.log('Error: ' + err.toString());
-                        } else {
-                            var email = doc.email;
-                            if (!doc.email) {
-                                email = 'EMAIL MISSING: ' + doc.givenName + ' ' + doc.familyName;
-                            }
-
-                            if (emails.indexOf(email) < 0) {
-                                emails.push(email);
-                            }
-                        }
-                    });
-
-                    promises.push(promise);
+                participants.forEach(function (participant) {
+                    emailAdresses[participant._id] = participant.email;
+                    participantNames[participant._id] = participant.givenName + ' ' + participant.familyName;
                 });
 
-                Promise.all(promises).then(function () {
-                    console.log('Unique participants: ' + emails.length.toString());
+                registrations.find({ 'event.date': { $in: nextDate } }, { 'participant.id': 1 }).toArray().then(function (docs) {
+                    if (err) {
+                        console.log('Error: ' + err.toString());
+                        db.close();
+                    } else {
+                        var nextEmails = [];
 
-                    emails.forEach(function(email) {
-                        console.log(email);
-                    });
+                        docs.forEach(function (registration) {
+                            var email = emailAdresses[registration.participant.id];
+
+                            if (email) {
+                                if (nextEmails.indexOf(email) < 0) {
+                                    nextEmails.push(email);
+                                }
+                            } else {
+                                console.log('EMAIL MISSING: ' + participantNames[registration.participant.id]);
+                            }
+                        });
+
+                        console.log(' ');
+                        console.log('NEXT PARTICIPANTS (' + nextEmails.length.toString() + ')');
+                        console.log('---------------------------------');
+                        nextEmails.forEach(function (email) {
+                            console.log(email);
+                        });
+
+                        console.log(' ');
+
+                        registrations.find({ 'event.date': { $in: dates }, 'checkedin': true }, { 'participant.id': 1 }).toArray().then(function (docs) {
+                            if (err) {
+                                console.log('Error: ' + err.toString());
+                                db.close();
+                            } else {
+                                var emails = [];
+                                docs.forEach(function (registration) {
+                                    // get email adress
+                                    var email = emailAdresses[registration.participant.id];
+                                    if (email) {
+                                        if (emails.indexOf(email) < 0 && nextEmails.indexOf(email) < 0) {
+                                            emails.push(email);
+                                        }
+                                    } else {
+                                        console.log('EMAIL MISSING: ' + participantNames[registration.participant.id]);
+                                    }
+                                });
+
+                                console.log(' ');
+                                console.log('PREVIOUS PARTICIPANTS (' + emails.length.toString() + ')');
+                                console.log('---------------------------------');
+                                emails.forEach(function (email) {
+                                    console.log(email);
+                                });
+
+                                db.close();
+                            }
+                        });
+                    }
                 });
-
-                db.close();
             }
         });
 

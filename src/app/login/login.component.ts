@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
     // Add callback for lock `authenticated` / 'hash_parsed' event
     this.lock.on('authenticated', (authResult) => {
-      localStorage.setItem('id_token', authResult.idToken);
+      localStorage.setItem('token', authResult.idToken);
 
       // Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {
