@@ -16,8 +16,8 @@ MongoClient.connect(url, function (err, db) {
     } else {
         // get checked in participants
         var registrations = db.collection('registrations');
-        var dates = [new Date('2017-03-17 00:00:00.000Z'), new Date('2017-03-31 00:00:00.000Z'), new Date('2017-04-21 00:00:00.000Z')];
-        var nextDate = [new Date('2017-05-05 00:00:00.000Z')];
+        var dates = [new Date('2017-03-31 00:00:00.000Z'), new Date('2017-04-21 00:00:00.000Z'), new Date('2017-05-5 00:00:00.000Z')];
+        var nextDate = [new Date('2017-05-12 00:00:00.000Z')];
 
         // get email adress
         var participantsCollection = db.collection('participants');
