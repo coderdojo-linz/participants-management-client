@@ -16,20 +16,20 @@ MongoClient.connect(url, function (err, db) {
     } else {
         // get checked in participants
         var registrations = db.collection('registrations');
-        var dates = [new Date('2017-03-31 00:00:00.000Z'), new Date('2017-04-21 00:00:00.000Z'), new Date('2017-05-5 00:00:00.000Z')];
-        var nextDate = [new Date('2017-05-12 00:00:00.000Z')];
+        var dates = [new Date('2017-04-21 00:00:00.000Z'), new Date('2017-05-05 00:00:00.000Z'), new Date('2017-05-19 00:00:00.000Z')];
+        var nextDate = [new Date('2017-06-02 00:00:00.000Z')];
 
-        // get email adress
+        // get email addresses
         var participantsCollection = db.collection('participants');
         var promise = participantsCollection.find({}).toArray().then(function (participants) {
             if (err) {
                 console.log('Error: ' + err.toString());
             } else {
-                var emailAdresses = {};
+                var emailAddresses = {};
                 var participantNames = {};
 
                 participants.forEach(function (participant) {
-                    emailAdresses[participant._id] = participant.email;
+                    emailAddresses[participant._id] = participant.email;
                     participantNames[participant._id] = participant.givenName + ' ' + participant.familyName;
                 });
 
@@ -41,7 +41,7 @@ MongoClient.connect(url, function (err, db) {
                         var nextEmails = [];
 
                         docs.forEach(function (registration) {
-                            var email = emailAdresses[registration.participant.id];
+                            var email = emailAddresses[registration.participant.id];
 
                             if (email) {
                                 if (nextEmails.indexOf(email) < 0) {
@@ -68,8 +68,8 @@ MongoClient.connect(url, function (err, db) {
                             } else {
                                 var emails = [];
                                 docs.forEach(function (registration) {
-                                    // get email adress
-                                    var email = emailAdresses[registration.participant.id];
+                                    // get email address
+                                    var email = emailAddresses[registration.participant.id];
                                     if (email) {
                                         if (emails.indexOf(email) < 0 && nextEmails.indexOf(email) < 0) {
                                             emails.push(email);
