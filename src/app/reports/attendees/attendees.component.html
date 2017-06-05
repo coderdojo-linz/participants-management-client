@@ -1,11 +1,34 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Participants</h1>
-      <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis"
-        [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-      </ngx-charts-bar-vertical-stacked>
+      <h1>Girls / Boys</h1>
+      <div class="chart">
+        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="dataGirlsBoys" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-stacked>
+      </div>
+      <!--<h1>Geburtsjahr</h1>
+      <div class="chart">
+        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-stacked>
+      </div>
+      <h1>Anzahl Teilnahmen</h1>
+      <div class="chart">
+        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-stacked>
+      </div>
+      <h1>Checked-In / Angemeldet</h1>
+      <div class="chart">
+        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-stacked>
+      </div>-->
     </div>
   </div>
 </div>

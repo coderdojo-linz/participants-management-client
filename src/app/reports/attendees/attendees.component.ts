@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthHttp } from 'angular2-jwt';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Observable } from 'rxjs/Observable';
+import { DataService, CoderDojoEvent } from './../../data/data.service';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-attendees',
   templateUrl: './attendees.component.html',
-  styleUrls: ['./attendees.component.sass']
+  styleUrls: ['./attendees.component.scss']
 })
 export class AttendeesComponent implements OnInit {
-  view: any[] = [700, 400];
-
+  public dataGirlsBoys = [];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -18,57 +21,45 @@ export class AttendeesComponent implements OnInit {
   showXAxisLabel = true;
   xAxisLabel = 'Event';
   showYAxisLabel = true;
-  yAxisLabel = 'Participants';
+  yAxisLabel = 'Teilnehmer';
 
   colorScheme = {
-    domain: ['#00BCD4', '#8BC34A', '#FFC107', '#FF5722']
+    domain: ['#9C27B0', '#2196F3']
   };
-  data: any[] = [
-    {
-      "name": "2017-04-07",
-      "series": [
-        {
-          "name": "Girls",
-          "value": 7300000
-        },
-        {
-          "name": "Boys",
-          "value": 8940000
-        }
-      ]
-    },
-    {
-      "name": "2017-04-21",
-      "series": [
-        {
-          "name": "Girls",
-          "value": 7870000
-        },
-        {
-          "name": "Boys",
-          "value": 8270000
-        }
-      ]
-    },
-    {
-      "name": "2017-05-05",
-      "series": [
-        {
-          "name": "Girls",
-          "value": 5000002
-        },
-        {
-          "name": "Boys",
-          "value": 5800000
-        }
-      ]
-    }
-  ];
-  
-  constructor() {
+  data: any[] = [ ];
+
+  constructor(private authHttp: AuthHttp, private dataService: DataService) {
   }
 
   ngOnInit() {
+    this.authHttp.get('http://participants-management-service.azurewebsites.net/api/participants/statistics/gender')
+      .map(data => data.json())
+      .subscribe(data => {
+        if (data) {
+          var result = [];
+          data.forEach(item => {
+            if (item.eventDate <= (new Date()).toISOString()) {
+              var events = result.filter(r => r.name == item.eventDate.toString().substr(0, 10));
+              var event: any;
+              if (events.length > 0) {
+                event = events[0];
+              } else {
+                event = { 'name': item.eventDate.toString().substr(0, 10), 'series': []};
+                result.push(event);
+              }
+
+              event.series.push({ 'name': item.gender == 'f' ? 'Girls' : (item.gender == 'm'? 'Boys' : 'Not assigned'), 'value': item.checkedin });
+            }
+          });
+          this.dataGirlsBoys = result;
+        } else {
+          this.dataGirlsBoys = [];
+        }
+      },
+      error => {
+        console.error(error);
+        this.dataGirlsBoys = [];
+      });
   }
 
   onSelect(event) {

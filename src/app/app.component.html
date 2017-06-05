@@ -1,32 +1,38 @@
-<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse" *ngIf="auth.authenticated()">
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
 		aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	<a class="navbar-brand" [routerLink]="['/scan']"><img src="../assets/coder-dojo-logo-inv.svg" width="20" /> CoderDojo Linz</a>
+	<a class="navbar-brand" [routerLink]="['/']"><img src="../assets/coder-dojo-logo-inv.svg" width="20" />CoderDojo Linz</a>
 
 	<div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" [routerLinkActive]="['active']">
+				<a class="nav-link" [routerLink]="['/reports']">Reports</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
 				<a class="nav-link" [routerLink]="['/scan']">Scan</a>
 			</li>
-			<li class="nav-item" [routerLinkActive]="['active']">
+			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
+				<a class="nav-link" [routerLink]="['/check-in']">Check-In</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
 				<a class="nav-link" [routerLink]="['/participants']">Participants</a>
 			</li>
-            <li class="nav-item" [routerLinkActive]="['active']">
+            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
 				<a class="nav-link" [routerLink]="['/badges']">Badges</a>
-			</li>
-			<li class="nav-item" [routerLinkActive]="['active']">
-				<a class="nav-link" [routerLink]="['/reports']">Reports</a>
 			</li>
 		</ul>
 
 		<span class="navbar-text cd-navbar-username" *ngIf="auth.userProfile">
 			{{auth.userProfile.name}}
 		</span>
-		<span class="navbar-text">
-			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()" *ngIf="auth.authenticated()">Log Out</button>
+		<span class="navbar-text" *ngIf="auth.authenticated()">
+			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()">Log Out</button>
+		</span>
+		<span class="navbar-text" *ngIf="!auth.authenticated()">
+			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()">Log In</button>
 		</span>
 	</div>
 </nav>

@@ -14,8 +14,11 @@
                     <div class="col-xs-6 col-sm-3"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-secondary btn-block">Eventbrite</button></div>
                 </div>
             </div>
-            <div>
-                <div GoogleChart id="bar_chart" [attr.chartData]="bar_ChartData" [attr.chartOptions]="bar_ChartOptions" chartType="BarChart"></div>
+            <div class="chart">
+                <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                    [legend]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
             </div>
             <table class="table">
                 <thead>

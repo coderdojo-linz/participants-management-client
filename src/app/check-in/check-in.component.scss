@@ -1,0 +1,68 @@
+.keyboard-container {
+    width: 830px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+
+    .keyboard-row-0 {
+        margin-bottom: 10px;
+    }
+
+    .keyboard-row-1 {
+        margin-bottom: 10px;
+        margin-left: 30px;
+    }
+
+    .keyboard-row-2 {
+        margin-left: 60px;
+    }
+
+    .key {
+        display: inline-block;
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        padding: 0;
+        width: 50px;
+        line-height: 50px;
+        text-align: center;
+        text-transform: uppercase;
+        margin-right: 10px;
+
+        &.special {
+            width: 110px;
+        }
+
+        &:hover {
+            background-color: #eee;
+            cursor: pointer;
+        }
+    }
+}
+
+.input-row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .input {
+        width: 100%;
+        border-bottom: 1px solid #bbb;
+        font-size: 40px;
+        height: 60px;
+        line-height: 60px;
+        text-transform: uppercase;
+    }
+
+    select {
+        margin-top: 20px;
+    }
+}
+
+.registration {
+    display: inline-block;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}

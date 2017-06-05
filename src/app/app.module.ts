@@ -16,6 +16,7 @@ import { ScanComponent } from './scan/scan.component';
 import { BadgesComponent } from './badges/badges.component';
 import { DataService } from './data/data.service';
 import { AttendeesComponent } from './reports/attendees/attendees.component';
+import { CheckInComponent } from './check-in/check-in.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({}), http, options);
@@ -28,7 +29,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     LoginComponent,
     ScanComponent,
     BadgesComponent,
-    AttendeesComponent
+    AttendeesComponent,
+    CheckInComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +39,13 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     NgxChartsModule,
     RouterModule.forRoot([
-      { path: '', component: ScanComponent, canActivate: [AuthGuardService] },
+      { path: '', component: AttendeesComponent },
       { path: 'login', component: LoginComponent },
       { path: 'scan', component: ScanComponent, canActivate: [AuthGuardService] },
+      { path: 'check-in', component: CheckInComponent, canActivate: [AuthGuardService] },
       { path: 'participants', component: ParticipantsComponent, canActivate: [AuthGuardService] },
       { path: 'badges', component: BadgesComponent, canActivate: [AuthGuardService] },
-      { path: 'reports', component: AttendeesComponent, canActivate: [AuthGuardService] },
+      { path: 'reports', component: AttendeesComponent },
       { path: '**', redirectTo: '' }
     ])
   ],

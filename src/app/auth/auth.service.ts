@@ -20,7 +20,7 @@ export class AuthService {
 
 	public logout() {
 		// Remove token from localStorage
-		localStorage.removeItem('id_token');
+		localStorage.removeItem('token');
 		localStorage.removeItem('profile');
 		this.userProfile = undefined;
 		this.router.navigate(['login']);

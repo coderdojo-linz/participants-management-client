@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="keyboard-container">
+        <template ngFor let-row [ngForOf]="keys" let-i="index">
+          <div class="keyboard-row-{{i}}">
+            <template ngFor let-key [ngForOf]="keys[i]" let-j="index">
+              <div class="key {{key == 'del' ? 'special' : ''}}" (click)="enterKey(key)">{{key}}</div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <div class="row input-row">
+    <div class="col-sm-9 text-center">
+      <div class="input">
+        {{input}}
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <select class="form-control" [(ngModel)]="selectedEvent">
+				<option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
+			</select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
+          <div class="registration">
+            {{registration.participant.givenName}} {{registration.participant.familyName}}
+          </div>
+        </template>
+    </div>
+  </div>
+</div>
