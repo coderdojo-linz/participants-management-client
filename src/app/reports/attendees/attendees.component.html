@@ -1,12 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <h1>Girls / Boys</h1>
+      <h1>Teilnehmer</h1>
       <div class="chart">
-        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="dataGirlsBoys" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+        <ngx-charts-bar-vertical-stacked [scheme]="colorSchemeParticipants" [results]="dataParticipants" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
           [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
           [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical-stacked>
+      </div>
+      <h1>Girls / Boys</h1>
+      <div class="chart">
+        <ngx-charts-bar-vertical-normalized [scheme]="colorSchemeGirlsBoys" [results]="dataGirlsBoys" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical-normalized>
       </div>
       <!--<h1>Geburtsjahr</h1>
       <div class="chart">
@@ -16,13 +23,6 @@
         </ngx-charts-bar-vertical-stacked>
       </div>
       <h1>Anzahl Teilnahmen</h1>
-      <div class="chart">
-        <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical-stacked>
-      </div>
-      <h1>Checked-In / Angemeldet</h1>
       <div class="chart">
         <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
           [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"

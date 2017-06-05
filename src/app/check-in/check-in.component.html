@@ -27,11 +27,54 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
-          <div class="registration">
-            {{registration.participant.givenName}} {{registration.participant.familyName}}
-          </div>
-        </template>
+      <div class="participants-container">
+        <template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
+            <div (click)="checkin(registration)" class="registration text-center"
+              [class.yellow]="registration.totalNumberOfCheckins >= 4"
+              [class.orange]="registration.totalNumberOfCheckins >= 9"
+              [class.green]="registration.totalNumberOfCheckins >= 14"
+              [class.blue]="registration.totalNumberOfCheckins >= 19"
+              [class.purple]="registration.totalNumberOfCheckins >= 24">
+              <div>{{registration.participant.givenName}}</div>
+              <div>{{registration.participant.familyName}}</div>
+              <div class="status"></div>
+            </div>
+          </template>
+      </div>
     </div>
   </div>
 </div>
+
+<div id="welcomeDialog" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><small>CoderDojo Linz</small></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6 col-md-8">
+						<h1>Hallo {{selectedRegistration.participant.givenName}}!</h1>
+
+						<p class="lead" [hidden]="selectedRegistration.totalNumberOfCheckins">Du hast heute deinen ersten CoderDojo Punkt gesammelt!</p>
+						<p class="lead" [hidden]="!selectedRegistration.totalNumberOfCheckins">Sch&ouml;n, dass du wieder dabei bist!</p>
+
+            <p class="lead">Klicke auf "Einchecken", um deinen CoderDojo Punkt zu speichern.</p>
+
+						<!--<p class="lead" [hidden]="selectedRegistration.totalNumberOfCheckins + 1 != 5">Gratuliere! Du hast heute 5 Punkte erreicht.</p>
+						<p [hidden]="selectedRegistration.totalNumberOfCheckins + 1 != 5">Du darfst dir bei den Mentoren ein kleines Geschenk abholen.</p>-->
+					</div>
+					<div class="col-sm-6 col-md-4 points">
+						<div><div>{{selectedRegistration.totalNumberOfCheckins ? selectedRegistration.totalNumberOfCheckins + 1 : 1}}</div></div>
+						<p class="text-center">CoderDojo Punkte</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-lg" data-dismiss="modal" (click)="cancelCheckin()">Abbrechen</button>
+        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal" (click)="confirmCheckin(selectedRegistration)">Einchecken</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

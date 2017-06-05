@@ -1,8 +1,13 @@
+$duration: 0.5s;
+$points-size: 100px;
+$info-color: #00BCD4;
+
 .keyboard-container {
-    width: 830px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 16px;
+    font-size: 24px;
+    font-weight: bold;
 
     .keyboard-row-0 {
         margin-bottom: 10px;
@@ -22,14 +27,15 @@
         border: 1px solid #bbb;
         border-radius: 5px;
         padding: 0;
-        width: 50px;
-        line-height: 50px;
+        width: 6.2%;
+        line-height: 60px;
         text-align: center;
         text-transform: uppercase;
-        margin-right: 10px;
+        margin-right: 1%;
+        background-color: #fff;
 
         &.special {
-            width: 110px;
+            width: 10%;
         }
 
         &:hover {
@@ -41,7 +47,7 @@
 
 .input-row {
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 
     .input {
         width: 100%;
@@ -57,12 +63,121 @@
     }
 }
 
+.participants-container {
+    height: 340px;
+    overflow: auto;
+    border: 1px solid #bbb;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .registration {
     display: inline-block;
     border: 1px solid #bbb;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 15px 50px;
     font-size: 20px;
     margin-bottom: 10px;
     margin-right: 10px;
+    background-color: #d9d9d9 !important;
+    position: relative;
+
+    div:first-of-type {
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    div:last-of-type {
+        font-size: 18px;
+    }
+
+    &.yellow {
+        background-color: #ffeb38 !important;
+    }
+
+    &.orange {
+        background-color: #ff9800 !important;
+    }
+
+    &.green {
+        background-color: #8bc34a !important;
+    }
+    
+    &.blue {
+        background-color: #03A9F4 !important;
+    }
+
+    &.purple {
+        background-color: #9C27B0 !important;
+    }
+
+    &:hover {
+        background-color: #292b2c!important;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    .status {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        height: 30px;
+        width: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+    }
+}
+
+#welcomeDialog {
+	font-size: larger;
+
+	.modal-body {
+		.points {
+			border-left: solid 1px #e5e5e5;
+
+			> div {
+				margin-left: auto;
+				margin-right: auto;
+				width: $points-size;
+				margin-top: 20px;
+				margin-bottom: 10px;
+
+				> div {
+					color: #fff;
+					border-radius: 50%;
+					background-color: $info-color;
+					//border: 1px solid lighten($info-border-color, 5%);
+					width: $points-size;
+					height: $points-size;
+					line-height: $points-size;
+					text-align: center;
+					font-size: 46px;
+					font-weight: bold;
+					animation-name: resizePoints;
+					animation-duration: 0.5s;
+					animation-direction: alternate;
+					animation-iteration-count: 2;
+					animation-timing-function: linear;
+				}
+			}
+
+			> p {
+				font-size: small;
+			}
+		}
+		/*p {
+			padding-top: 40px;
+			padding-bottom: 40px;
+			font-size: 20px;
+		}
+		
+		.badge {
+			font-size: 16px;
+		}*/
+		/*img {
+			height: 220px;
+			margin-top: 20px;
+		}*/
+	}
 }

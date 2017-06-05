@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { DataService, CoderDojoEvent } from './../data/data.service';
 import 'rxjs/add/operator/map';
 
+declare var $: any;
+
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
@@ -12,6 +14,7 @@ import 'rxjs/add/operator/map';
 export class CheckInComponent implements OnInit {
   public events: any[] = [];
   public selectedEvent: string;
+  public selectedRegistration: any;
   public registrations: any[] = [];
   public filteredRegistrations: any[] = [];
   public keys: any[];
@@ -51,7 +54,8 @@ export class CheckInComponent implements OnInit {
       .map(data => data.json())
       .subscribe(data => {
         if (data) {
-          this.registrations = data;
+          this.registrations = data.sort((a, b) => a.participant.givenName.toLowerCase() > b.participant.givenName.toLowerCase() ? 1 : 
+						(a.participant.givenName.toLowerCase() == b.participant.givenName.toLowerCase() && a.participant.familyName.toLowerCase() > b.participant.familyName.toLowerCase() ? 1 : -1));
 
           var max = 0;
         } else {
@@ -73,5 +77,33 @@ export class CheckInComponent implements OnInit {
     } else {
       this.filteredRegistrations = this.registrations;
     }
+  }
+
+  checkin(registration: any) {
+    var options = { backdrop: 'static' };
+    this.selectedRegistration = registration;
+    (<any>$('#welcomeDialog')).modal(options);
+  }
+
+  confirmCheckin(registration: any) {
+    this.authHttp.post('https://participants-management-service.azurewebsites.net/api/participants/' + registration.participant.id + '/checkin/' + this.selectedEvent,
+				'').subscribe(
+				data => {
+					var result = data.json();
+          this.selectedRegistration = null;
+					(<any>$('#welcomeDialog')).modal('hide');
+          this.loadParticipants();
+				},
+				error => {
+					alert(error);
+					console.log(error);
+					//this.stop();
+					//this.start();
+				});
+  }
+
+  cancelCheckin() {
+    this.selectedRegistration = null;
+    (<any>$('#welcomeDialog')).modal('hide');
   }
 }

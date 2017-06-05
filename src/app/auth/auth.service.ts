@@ -18,12 +18,16 @@ export class AuthService {
 		return tokenNotExpired();
 	}
 
+	public login() {
+		this.router.navigate(['login']);
+	}
+
 	public logout() {
 		// Remove token from localStorage
 		localStorage.removeItem('token');
 		localStorage.removeItem('profile');
 		this.userProfile = undefined;
-		this.router.navigate(['login']);
+		this.router.navigate(['']);
 	}
 
 	public hasRole(role: string): boolean {
