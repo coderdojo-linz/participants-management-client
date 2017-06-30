@@ -38,4 +38,5 @@ export interface CoderDojoEvent {
   _id: string;
   location: string;
   date: Date;
+  type: string;
 }

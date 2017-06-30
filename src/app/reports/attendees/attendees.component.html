@@ -1,17 +1,43 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <h1>Kennzahlen für die letzten 12 Monate</h1>
+      <p>Die <a href="http://coderdojo-linz.github.io/infos/playground.html" target="_blank">CoderDojo Playgrounds</a> sind in den Kennzahlen nicht enthalten.</p>
+
+      <table class="table table-striped">
+        <tr>
+          <td>Anzahl Events</td>
+          <td class="text-right">{{eventsLastYear}}</td>
+        </tr>
+        <tr>
+          <td>Angemeldete Teilnehmer inkl. Stornos</td>
+          <td class="text-right">{{registeredLastYear}}</td>
+        </tr>
+        <tr>
+          <td>Check-Ins (tatsächliche Teilnehmer)</td>
+          <td class="text-right">{{checkedinLastYear}}</td>
+        </tr>
+        <tr>
+          <td>Durchschnittl. Check-Ins / Event</td>
+          <td class="text-right">{{checkedinLastYear / eventsLastYear | number:'1.0-0'}}</td>
+        </tr>
+        <tr>
+          <td>Anteil Check-Ins Girls / Boys</td>
+          <td class="text-right">{{girlsLastYear * 100 / (girlsLastYear + boysLastYear) | number:'1.0-0'}}% / {{boysLastYear *
+        100 / (girlsLastYear + boysLastYear) | number:'1.0-0'}}%</td>
+        </tr>
+      </table>
       <h1>Teilnehmer</h1>
       <div class="chart">
-        <ngx-charts-bar-vertical-stacked [scheme]="colorSchemeParticipants" [results]="dataParticipants" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+        <ngx-charts-bar-vertical-stacked [scheme]="colorSchemeParticipants" [results]="dataParticipants" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
           [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical-stacked>
       </div>
       <h1>Girls / Boys</h1>
       <div class="chart">
-        <ngx-charts-bar-vertical-normalized [scheme]="colorSchemeGirlsBoys" [results]="dataGirlsBoys" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-          [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+        <ngx-charts-bar-vertical-normalized [scheme]="colorSchemeGirlsBoys" [results]="dataGirlsBoys" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
           [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical-normalized>
       </div>

@@ -32,10 +32,11 @@ $info-color: #00BCD4;
         text-align: center;
         text-transform: uppercase;
         margin-right: 1%;
-        background-color: #fff;
+        background-color: #FFFDE7;
 
         &.special {
             width: 10%;
+            background-color: #FFC107;
         }
 
         &:hover {
@@ -64,11 +65,11 @@ $info-color: #00BCD4;
 }
 
 .participants-container {
-    height: 340px;
     overflow: auto;
-    border: 1px solid #bbb;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 20px;
+    margin-left: -15px;
+    margin-right: -15px;
+    background-color: #292b2c;
 }
 
 .registration {
@@ -77,8 +78,8 @@ $info-color: #00BCD4;
     border-radius: 5px;
     padding: 15px 50px;
     font-size: 20px;
-    margin-bottom: 10px;
-    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-right: 20px;
     background-color: #d9d9d9 !important;
     position: relative;
 
@@ -109,6 +110,7 @@ $info-color: #00BCD4;
 
     &.purple {
         background-color: #9C27B0 !important;
+        color: #fff;
     }
 
     &:hover {
@@ -126,6 +128,10 @@ $info-color: #00BCD4;
         background-color: #fff;
         border-radius: 50%;
         border: 1px solid #ccc;
+
+        &.checked-in {
+            color: #689F38;
+        }
     }
 }
 
@@ -180,4 +186,8 @@ $info-color: #00BCD4;
 			margin-top: 20px;
 		}*/
 	}
+}
+
+.check-in-button {
+    padding: .75rem 5rem;
 }

@@ -25,7 +25,7 @@
 			</li>
 		</ul>
 
-		<span class="navbar-text cd-navbar-username" *ngIf="auth.userProfile">
+		<span class="navbar-text cd-navbar-username" *ngIf="auth.authenticated() && auth.userProfile">
 			{{auth.userProfile.name}}
 		</span>
 		<span class="navbar-text" *ngIf="auth.authenticated()">

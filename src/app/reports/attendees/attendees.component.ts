@@ -16,6 +16,12 @@ import 'rxjs/add/operator/map';
 export class AttendeesComponent implements OnInit {
   public dataGirlsBoys = [];
   public dataParticipants = [];
+  public checkedinLastYear = 0;
+  public registeredLastYear = 0;
+  public girlsLastYear = 0;
+  public boysLastYear = 0;
+  public eventsLastYear = 0;
+  private countedEvents: any[] = [];
   showXAxis = true;
   showYAxis = true;
   gradient = false;
@@ -37,27 +43,52 @@ export class AttendeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('http://participants-management-service.azurewebsites.net/api/participants/statistics/gender')
+    this.http.get('https://participants-management-service.azurewebsites.net/api/participants/statistics/gender')
       .map(data => data.json())
       .subscribe(data => {
         if (data) {
           var resultGirlsBoys = [];
           var resultParticipants = [];
+          this.checkedinLastYear = 0;
+          this.registeredLastYear = 0;
+          this.girlsLastYear = 0;
+          this.boysLastYear = 0;
+          this.eventsLastYear = 0;
+          this.eventsLastYear = 0;
+          this.countedEvents = [];
 
           data.forEach(item => {
-            if (item.eventDate <= (new Date()).toISOString()) {
+            var date = new Date();
+            if (item.eventDate <= date.toISOString()) {
+              var year = date.getFullYear();
+              if (item.eventDate > date.toISOString().replace(year.toString(), (year - 1).toString())) {
+                this.registeredLastYear += item.registered;
+                this.checkedinLastYear += item.checkedin;
+                if (item.gender == "f") {
+                  this.girlsLastYear += item.checkedin;
+                } else if (item.gender == "m") {
+                  this.boysLastYear += item.checkedin;
+                }
+
+                if (this.countedEvents.indexOf(item.eventDate) < 0) {
+                  this.eventsLastYear++;
+                  this.countedEvents.push(item.eventDate);
+                }
+              }
+
               // participants
               var events = resultParticipants.filter(r => r.name == item.eventDate.toString().substr(0, 10));
               var event: any;
               if (events.length > 0) {
                 event = events[0];
               } else {
-                event = { 
-                  'name': item.eventDate.toString().substr(0, 10), 
-                  'series': [ 
-                    { 'name': 'Checked-In', 'value': 0 }, 
+                event = {
+                  'name': item.eventDate.toString().substr(0, 10),
+                  'series': [
+                    { 'name': 'Checked-In', 'value': 0 },
                     { 'name': 'Storniert oder nicht gekommen', 'value': 0 }
-                  ]};
+                  ]
+                };
                 resultParticipants.push(event);
               }
 
@@ -70,14 +101,14 @@ export class AttendeesComponent implements OnInit {
               if (events.length > 0) {
                 event = events[0];
               } else {
-                event = { 'name': item.eventDate.toString().substr(0, 10), 'series': []};
+                event = { 'name': item.eventDate.toString().substr(0, 10), 'series': [] };
                 resultGirlsBoys.push(event);
               }
 
-              event.series.push({ 'name': item.gender == 'f' ? 'Girls' : (item.gender == 'm'? 'Boys' : 'Not assigned'), 'value': item.checkedin });
+              event.series.push({ 'name': item.gender == 'f' ? 'Girls' : (item.gender == 'm' ? 'Boys' : 'Not assigned'), 'value': item.checkedin });
             }
           });
-          
+
           this.dataGirlsBoys = resultGirlsBoys;
           this.dataParticipants = resultParticipants;
         } else {
