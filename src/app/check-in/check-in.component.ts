@@ -138,10 +138,13 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
       '').subscribe(
       data => {
         var result = data.json();
+        this.selectedRegistration.checkedin = true;
         this.selectedRegistration = null;
-        (<any>$('#welcomeDialog')).modal('hide');
+        this.input = '';
+        this.loadParticipants();
+        //this.updateFilteredRegistrations();
+        //(<any>$('#welcomeDialog')).modal('hide');
         //this.loadParticipants();
-        registration.checkedin = true;
       },
       error => {
         alert(error);
