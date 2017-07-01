@@ -140,6 +140,12 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
         var result = data.json();
         this.selectedRegistration.checkedin = true;
         this.selectedRegistration = null;
+        if (this.selectedRegistration.totalNumberOfCheckins) {
+          this.selectedRegistration.totalNumberOfCheckins++;
+        } else {
+          this.selectedRegistration.totalNumberOfCheckins = 1;
+        }
+        
         this.input = '';
         this.loadParticipants();
         //this.updateFilteredRegistrations();

@@ -12,8 +12,11 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container-fluid">
   <div class="row input-row">
-    <div class="col-sm-9 text-center">
+    <div class="col-sm-9">
       <div class="input">
         {{input}}
       </div>
@@ -25,14 +28,20 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid">
   <div class="participants-container">
+    <div *ngIf="!input" class="no-input"><div>Tippe die ersten Buchstaben deines Vornamen ein.</div></div>
     <template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
-      <div (click)="checkin(registration)" class="registration text-center" [class.yellow]="registration.totalNumberOfCheckins >= 4"
-        [class.orange]="registration.totalNumberOfCheckins >= 9" [class.green]="registration.totalNumberOfCheckins >= 14" [class.blue]="registration.totalNumberOfCheckins >= 19"
-        [class.purple]="registration.totalNumberOfCheckins >= 24">
+      <div (click)="checkin(registration)" class="registration text-center" 
+        [class.yellow]="registration.totalNumberOfCheckins >= 5"
+        [class.orange]="registration.totalNumberOfCheckins >= 10" 
+        [class.green]="registration.totalNumberOfCheckins >= 15" 
+        [class.blue]="registration.totalNumberOfCheckins >= 20"
+        [class.purple]="registration.totalNumberOfCheckins >= 25">
         <div>{{registration.participant.givenName}}</div>
         <div>{{registration.participant.familyName}}</div>
+        <div class="points">{{registration.totalNumberOfCheckins}}</div>
         <div class="status" [class.checked-in]="registration.checkedin"><i [hidden]="!registration.checkedin" class="fa fa-check" aria-hidden="true"></i></div>
       </div>
     </template>
