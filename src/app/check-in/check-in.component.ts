@@ -20,7 +20,6 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   public filteredRegistrations: any[] = [];
   public keys: any[];
   public input: string = '';
-  public audio = new Audio('/assets/fanfare.aiff');
 
   constructor(private authHttp: AuthHttp, private dataService: DataService) { }
 
@@ -65,7 +64,7 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
         var date2 = new Date(event2.date);
         return date1 > date2 ? -1 : 1;
       })
-      .slice(0, 5);
+      .slice(0, 20);
 
     var responses = [];
     events.forEach(event => {
@@ -127,10 +126,11 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   checkin(registration: any) {
     var options = { backdrop: 'static' };
     this.selectedRegistration = registration;
-    (<any>$('#welcomeDialog')).modal(options);
-    // this.audio.load();
-    // this.audio.play();
 
+    var audio = $("#fanfareAudio")[0];
+    audio.play();
+
+    (<any>$('#welcomeDialog')).modal(options);
   }
 
   confirmCheckin(registration: any) {
@@ -139,18 +139,16 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
       data => {
         var result = data.json();
         this.selectedRegistration.checkedin = true;
-        this.selectedRegistration = null;
-        if (this.selectedRegistration.totalNumberOfCheckins) {
-          this.selectedRegistration.totalNumberOfCheckins++;
-        } else {
-          this.selectedRegistration.totalNumberOfCheckins = 1;
-        }
         
-        this.input = '';
-        this.loadParticipants();
-        //this.updateFilteredRegistrations();
-        //(<any>$('#welcomeDialog')).modal('hide');
-        //this.loadParticipants();
+        if (this.selectedRegistration) {
+          this.selectedRegistration.totalNumberOfCheckins = result.numberOfCheckins;
+        }
+        setTimeout(()=> { 
+          this.selectedRegistration = null;
+          this.input = '';
+          this.updateFilteredRegistrations();
+        }, 1000)
+      
       },
       error => {
         alert(error);

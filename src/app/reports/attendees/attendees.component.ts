@@ -32,11 +32,11 @@ export class AttendeesComponent implements OnInit {
   yAxisLabel = 'Teilnehmer';
 
   colorSchemeParticipants = {
-    domain: ['#2196F3', '#FFC107']
+    domain: ['#2196F3', '#FFC107', '#ff0000']
   };
 
   colorSchemeGirlsBoys = {
-    domain: ['#9C27B0', '#2196F3']
+    domain: ['#9C27B0', '#2196F3', '#ff0000']
   };
 
   constructor(private http: Http, private authHttp: AuthHttp, private dataService: DataService) {
@@ -93,7 +93,9 @@ export class AttendeesComponent implements OnInit {
               }
 
               event.series[0].value += item.checkedin;
-              event.series[1].value += item.registered - item.checkedin;
+              if (new Date(item.eventDate) < new Date(2017, 5, 30)) {
+                event.series[1].value += item.registered - item.checkedin;
+              }
 
               // girls / boys
               var events = resultGirlsBoys.filter(r => r.name == item.eventDate.toString().substr(0, 10));

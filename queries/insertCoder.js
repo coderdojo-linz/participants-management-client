@@ -38,7 +38,7 @@ MongoClient.connect(url, function (err, db) {
                         var familyName = responses[1];
                         var yearOfBirth = responses[2];
                         var gender = responses[3];
-                        var email = responses[4]
+                        var email = responses[4];
                         var date = responses[5];
                         var needsComputer = responses[6];
 
@@ -66,7 +66,7 @@ MongoClient.connect(url, function (err, db) {
                                     "familyName" : currentParticipant.familyName
                                 },
                                 "registered" : true,
-                                "needsComputer": false,
+                                "needsComputer": needsComputer,
                                 "checkedin" : false
                             }).then(response => {
                                 db.close();

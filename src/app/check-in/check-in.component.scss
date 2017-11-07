@@ -2,6 +2,10 @@ $duration: 0.5s;
 $points-size: 100px;
 $info-color: #00BCD4;
 
+audio {
+    visibility: hidden;
+}
+
 .keyboard-container {
     width: 100%;
     margin-left: auto;
