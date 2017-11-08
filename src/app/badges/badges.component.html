@@ -1,7 +1,7 @@
 <div class="cd-badges">
-	<template ngFor let-page [ngForOf]="badgePages" let-i="index">
+	<ng-template ngFor let-page [ngForOf]="badgePages" let-i="index">
 		<div class="cd-badge-page">
-			<template ngFor let-registration [ngForOf]="page.registrations" let-i="index">
+			<ng-template ngFor let-registration [ngForOf]="page.registrations" let-i="index">
 				<div class="cd-badge" *ngIf="registration.markerText">
 					<div class="cd-badge-marker">{{registration.markerText}}</div>
 					<div class="cd-badge-marker-arrow"><span class="fa fa-arrow-circle-o-down"></span></div>
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<div *ngIf="i % 8 == 7"></div>
-			</template>
+			</ng-template>
 		</div>
-	</template>
+	</ng-template>
 </div>

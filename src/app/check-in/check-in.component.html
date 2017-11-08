@@ -1,21 +1,22 @@
 <audio controls id="fanfareAudio">
-  <source src="../../assets/fanfare.wav" type="audio/wav">
-Your browser does not support the audio element.
+  <source src="../../assets/fanfare.wav" type="audio/wav"> Your browser does not support the audio element.
 </audio>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="keyboard-container">
-        <template ngFor let-row [ngForOf]="keys" let-i="index">
-          <div class="keyboard-row-{{i}}">
-            <template ngFor let-key [ngForOf]="keys[i]" let-j="index">
-              <div class="key {{key == 'del' ? 'special' : ''}}" (click)="enterKey(key)">{{key}}</div>
-            </template>
-          </div>
-        </template>
-      </div>
+<div class="container-fluid">
+  <div class="participants-container">
+    <div *ngIf="!input" class="no-input">
+      <div>Tippe die ersten Buchstaben deines Vornamen ein.</div>
     </div>
+    <ng-template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
+      <div (click)="checkin(registration)" class="registration text-center" [@flyInOut]="'in'" [class.yellow]="registration.totalNumberOfCheckins >= 5"
+        [class.orange]="registration.totalNumberOfCheckins >= 10" [class.green]="registration.totalNumberOfCheckins >= 15"
+        [class.blue]="registration.totalNumberOfCheckins >= 20" [class.purple]="registration.totalNumberOfCheckins >= 25">
+        <div>{{registration.participant.givenName}}</div>
+        <div>{{registration.participant.familyName}}</div>
+        <div class="points">{{registration.totalNumberOfCheckins}}</div>
+        <div class="status" [class.checked-in]="registration.checkedin"><i [hidden]="!registration.checkedin" class="fa fa-check" aria-hidden="true"></i></div>
+      </div>
+    </ng-template>
   </div>
 </div>
 
@@ -35,21 +36,16 @@ Your browser does not support the audio element.
 </div>
 
 <div class="container-fluid">
-  <div class="participants-container">
-    <div *ngIf="!input" class="no-input"><div>Tippe die ersten Buchstaben deines Vornamen ein.</div></div>
-    <template ngFor let-registration [ngForOf]="filteredRegistrations" let-i="index">
-      <div (click)="checkin(registration)" class="registration text-center" 
-        [class.yellow]="registration.totalNumberOfCheckins >= 5"
-        [class.orange]="registration.totalNumberOfCheckins >= 10" 
-        [class.green]="registration.totalNumberOfCheckins >= 15" 
-        [class.blue]="registration.totalNumberOfCheckins >= 20"
-        [class.purple]="registration.totalNumberOfCheckins >= 25">
-        <div>{{registration.participant.givenName}}</div>
-        <div>{{registration.participant.familyName}}</div>
-        <div class="points">{{registration.totalNumberOfCheckins}}</div>
-        <div class="status" [class.checked-in]="registration.checkedin"><i [hidden]="!registration.checkedin" class="fa fa-check" aria-hidden="true"></i></div>
-      </div>
-    </template>
+  <div class="keyboard-container">
+    <div class="keyboard">
+      <ng-template ngFor let-row [ngForOf]="keys" let-i="index">
+        <div class="keyboard-row-{{i}}">
+          <ng-template ngFor let-key [ngForOf]="keys[i]" let-j="index">
+            <div class="key {{key == 'del' ? 'special' : ''}}" (click)="enterKey(key)">{{key}}</div>
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
   </div>
 </div>
 

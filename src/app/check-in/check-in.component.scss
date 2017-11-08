@@ -7,36 +7,43 @@ audio {
 }
 
 .keyboard-container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100vw;
+    padding: 20px 15px;
     font-size: 24px;
     font-weight: bold;
+    background-color: #292b2c;
+    margin-left: -15px;
+    margin-right: -15px;
+
+    .keyboard {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
     .keyboard-row-0 {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .keyboard-row-1 {
-        margin-bottom: 10px;
-        margin-left: 30px;
+        margin-bottom: 20px;
+        margin-left: 3.1%;
     }
 
     .keyboard-row-2 {
-        margin-left: 60px;
+        margin-left: 6.2%;
     }
 
     .key {
         display: inline-block;
         border: 1px solid #bbb;
-        border-radius: 5px;
+        background-color: #ddd; 
         padding: 0;
         width: 6.2%;
         line-height: 60px;
         text-align: center;
         text-transform: uppercase;
         margin-right: 1%;
-        background-color: #FFFDE7;
 
         &.special {
             width: 10%;
@@ -44,7 +51,7 @@ audio {
         }
 
         &:hover {
-            background-color: #eee;
+            background-color: #fff;
             cursor: pointer;
         }
     }
@@ -72,10 +79,8 @@ audio {
     padding: 20px 15px;
     margin-left: -15px;
     margin-right: -15px;
-    background-color: #292b2c;
 
     .no-input {
-        color: #fff;
         font-size: 30px;
         overflow: hidden;
         
@@ -92,13 +97,17 @@ audio {
 .registration {
     display: inline-block;
     border: 1px solid #bbb;
-    border-radius: 5px;
     padding: 15px 50px;
     font-size: 20px;
     margin-bottom: 20px;
     margin-right: 20px;
     background-color: #d9d9d9 !important;
     position: relative;
+
+    div {
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
     div:first-of-type {
         font-size: 30px;

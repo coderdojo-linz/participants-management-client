@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { DataService, CoderDojoEvent } from './../data/data.service';
@@ -10,7 +11,27 @@ declare var $: any;
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
-  styleUrls: ['./check-in.component.scss']
+  styleUrls: ['./check-in.component.scss'],
+  animations: [
+    trigger('flyInOut', [
+      // state('in', style({transform: 'translateX(0)'})),
+      // transition('void => *', [
+      //   style({transform: 'translateX(-100vw)'}),
+      //   animate(200)
+      // ]),
+      // transition('* => void', [
+      //   animate(200, style({transform: 'translateX(100vw)'}))
+      // ])
+      state('in', style({width: 'auto'})),
+      transition('void => *', [
+        style({width: '0'}),
+        animate(100)
+      ]),
+      transition('* => void', [
+        animate(100, style({width: '0'}))
+      ])
+    ])
+  ]
 })
 export class CheckInComponent implements OnInit, AfterViewChecked {
   public events: any[] = [];
@@ -41,7 +62,7 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    var height = screen.height - $('.participants-container').offset().top - 147;
+    var height = screen.height - $('.keyboard-container').height() - 420;
     console.log(height);
     $('.participants-container').height(height);
   }
@@ -139,16 +160,16 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
       data => {
         var result = data.json();
         this.selectedRegistration.checkedin = true;
-        
+
         if (this.selectedRegistration) {
           this.selectedRegistration.totalNumberOfCheckins = result.numberOfCheckins;
         }
-        setTimeout(()=> { 
+        setTimeout(() => {
           this.selectedRegistration = null;
           this.input = '';
           this.updateFilteredRegistrations();
         }, 1000)
-      
+
       },
       error => {
         alert(error);
