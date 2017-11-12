@@ -5,7 +5,7 @@
             <select class="form-control" [(ngModel)]="selectedEvent" (ngModelChange)="loadParticipants()">
                 <option *ngFor="let event of events" [value]="event._id">{{event.date | date}}</option>
             </select>
-            <div class="alert alert-info">
+            <mat-card color="primary">
                 <div class="row">
                     <div class="col-xs-4 col-sm-2 text-center">Anmeldungen<br /><span class="badge badge-default">{{registrations.length}}</span></div>
                     <div class="col-xs-4 col-sm-2 text-center">Notebooks<br /><span class="badge badge-default">{{numberOfNotebooks}}</span></div>
@@ -13,7 +13,7 @@
                     <div class="col-xs-6 col-sm-3"><button (click)="loadParticipants()" class="btn btn-secondary btn-block">Aktualisieren</button></div>
                     <div class="col-xs-6 col-sm-3"><button (click)="loadParticipantsFromEventbrite()" class="btn btn-secondary btn-block">Eventbrite</button></div>
                 </div>
-            </div>
+            </mat-card>
             <div class="chart">
                 <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                     [legend]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"

@@ -1,42 +1,18 @@
-<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
-	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<a class="navbar-brand" [routerLink]="['/']"><img src="../assets/coder-dojo-logo-inv.svg" width="20" />CoderDojo Linz</a>
-
-	<div class="collapse navbar-collapse" id="navbarText">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item" [routerLinkActive]="['active']">
-				<a class="nav-link" [routerLink]="['/reports']">Reports</a>
-			</li>
-			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
-				<a class="nav-link" [routerLink]="['/scan']">Scan</a>
-			</li>
-			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
-				<a class="nav-link" [routerLink]="['/check-in']">Check-In</a>
-			</li>
-			<li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
-				<a class="nav-link" [routerLink]="['/participants']">Participants</a>
-			</li>
-            <li class="nav-item" [routerLinkActive]="['active']" *ngIf="auth.authenticated()">
-				<a class="nav-link" [routerLink]="['/badges']">Badges</a>
-			</li>
-		</ul>
-
-		<span class="navbar-text cd-navbar-username" *ngIf="auth.authenticated() && auth.userProfile">
-			{{auth.userProfile.name}}
-		</span>
-		<span class="navbar-text" *ngIf="auth.authenticated()">
-			<button class="btn btn-outline-secondary btn-sm" (click)="auth.logout()">Log Out</button>
-		</span>
-		<span class="navbar-text" *ngIf="!auth.authenticated()">
-			<button class="btn btn-outline-secondary btn-sm" (click)="auth.login()">Log In</button>
-		</span>
-	</div>
-</nav>
-
 <div class="cd-content">
 	<router-outlet></router-outlet>
 </div>
+
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+	<button mat-menu-item [routerLink]="['/reports']">Reports</button>
+	<button mat-menu-item *ngIf="auth.authenticated()" [routerLink]="['/scan']">Scan</button>
+	<button mat-menu-item *ngIf="auth.authenticated()" [routerLink]="['/check-in']">Check-In</button>
+	<button mat-menu-item *ngIf="auth.authenticated()" [routerLink]="['/participants']">Participants</button>
+	<button mat-menu-item *ngIf="auth.authenticated()" [routerLink]="['/badges']">Badges</button>
+
+	<button mat-menu-item *ngIf="auth.authenticated()" (click)="auth.logout()">Logout</button>
+	<button mat-menu-item *ngIf="!auth.authenticated()" (click)="auth.login()">Login</button>
+</mat-menu>
+
+<button mat-fab [matMenuTriggerFor]="menu" class="menu" color="primary">
+	<mat-icon>menu</mat-icon>
+</button>

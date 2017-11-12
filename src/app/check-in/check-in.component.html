@@ -41,7 +41,7 @@
       <ng-template ngFor let-row [ngForOf]="keys" let-i="index">
         <div class="keyboard-row-{{i}}">
           <ng-template ngFor let-key [ngForOf]="keys[i]" let-j="index">
-            <div class="key {{key == 'del' ? 'special' : ''}}" (click)="enterKey(key)">{{key}}</div>
+            <div class="key {{key == 'del' || key == 'clear' ? 'special' : ''}}" (click)="enterKey(key)">{{key}}</div>
           </ng-template>
         </div>
       </ng-template>

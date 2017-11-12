@@ -9,20 +9,20 @@ audio {
 .keyboard-container {
     width: 100vw;
     padding: 20px 15px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     background-color: #292b2c;
     margin-left: -15px;
     margin-right: -15px;
 
     .keyboard {
-        max-width: 1400px;
+        max-width: 1200px;
         margin-left: auto;
         margin-right: auto;
     }
 
     .keyboard-row-0 {
-        margin-bottom: 20px;
+        margin-bottom: 20px;   
     }
 
     .keyboard-row-1 {
@@ -39,20 +39,26 @@ audio {
         border: 1px solid #bbb;
         background-color: #ddd; 
         padding: 0;
-        width: 6.2%;
+        width: 7%;
         line-height: 60px;
         text-align: center;
         text-transform: uppercase;
         margin-right: 1%;
 
-        &.special {
-            width: 10%;
-            background-color: #FFC107;
-        }
-
         &:hover {
             background-color: #fff;
             cursor: pointer;
+        }
+
+        &.special {
+            width: 13%;
+            background-color: #FFC107;
+            // font-size: 20px;
+            font-weight: normal;
+
+            &:hover {
+                background-color: #FFC107;
+            }
         }
     }
 }

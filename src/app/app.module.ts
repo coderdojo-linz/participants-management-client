@@ -5,6 +5,12 @@ import { HttpModule, Http, RequestOptions } from '@angular/http';
 import { Router, Routes, RouterModule } from '@angular/router';
 import { provideAuth, AuthHttp, AuthConfig } from 'angular2-jwt';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatButtonModule } from '@angular/material/button';
+import  {MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthService } from './auth/auth.service';
@@ -38,6 +44,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     FormsModule,
     HttpModule,
     NgxChartsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSelectModule,
+    FlexLayoutModule,
     RouterModule.forRoot([
       { path: '', component: AttendeesComponent },
       { path: 'login', component: LoginComponent },

@@ -32,11 +32,11 @@ export class AttendeesComponent implements OnInit {
   yAxisLabel = 'Teilnehmer';
 
   colorSchemeParticipants = {
-    domain: ['#2196F3', '#FFC107', '#ff0000']
+    domain: ['#03A9F4', '#FF9800', '#FF9800']
   };
 
   colorSchemeGirlsBoys = {
-    domain: ['#9C27B0', '#2196F3', '#ff0000']
+    domain: ['#FFC107', '#03A9F4', '#FF9800']
   };
 
   constructor(private http: Http, private authHttp: AuthHttp, private dataService: DataService) {

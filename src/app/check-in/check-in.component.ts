@@ -25,10 +25,10 @@ declare var $: any;
       state('in', style({width: 'auto'})),
       transition('void => *', [
         style({width: '0'}),
-        animate(100)
+        animate(200)
       ]),
       transition('* => void', [
-        animate(100, style({width: '0'}))
+        animate(200, style({width: '0'}))
       ])
     ])
   ]
@@ -46,9 +46,9 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.keys = [
-      ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'ü', 'del'],
+      ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'ü'],
       ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä'],
-      ['y', 'x', 'c', 'v', 'b', 'n', 'm']
+      ['y', 'x', 'c', 'v', 'b', 'n', 'm', 'del', 'clear']
     ];
 
     this.dataService.getEvents()
@@ -68,8 +68,10 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   }
 
   enterKey(key) {
-    if (key == 'del') {
+    if (key == 'clear') {
       this.input = '';
+    } else if (key == 'del') {
+      this.input = this.input.substr(0, Math.max(0, this.input.length - 1));
     } else {
       this.input += key;
     }
