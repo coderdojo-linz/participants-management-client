@@ -62,7 +62,7 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    var height = screen.height - $('.keyboard-container').height() - 420;
+    var height = screen.height - $('.keyboard-container').height() - 360;
     console.log(height);
     $('.participants-container').height(height);
   }
