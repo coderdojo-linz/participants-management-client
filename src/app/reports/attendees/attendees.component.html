@@ -47,6 +47,25 @@
           [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical-normalized>
       </div>
+      <h1>Daten</h1>
+      <table class="table table-striped">
+        <tr>
+          <th>Termin</th>
+          <th>Teilnehmer</th>
+          <th>Girls</th>
+          <th>Girls [%]</th>
+          <th>Boys</th>
+          <th>Boys [%]</th>
+        </tr>
+        <tr *ngFor="let data of dataGirlsBoys">
+          <td>{{data.name}}</td>
+          <td>{{data.series[0].value + data.series[1].value}}</td>
+          <td>{{data.series[0].value}}</td>
+          <td>{{data.series[0].value / (data.series[0].value + data.series[1].value) | percent}}</td>
+          <td>{{data.series[1].value}}</td>
+          <td>{{data.series[1].value / (data.series[0].value + data.series[1].value) | percent}}</td>
+        </tr>
+      </table>
       <!--<h1>Geburtsjahr</h1>
       <div class="chart">
         <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="data" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"

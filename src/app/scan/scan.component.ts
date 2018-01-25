@@ -20,6 +20,7 @@ export class ScanComponent implements OnInit {
 	public events: any[] = [];
 	public selectedEvent: string;
 	public status: string;
+	public scanRunning: boolean = false;
 
 	private video: any;
 	private canvas: any;
@@ -28,7 +29,6 @@ export class ScanComponent implements OnInit {
 	private scale: number = 0.5;
 	private width: number;
 	private height: number;
-	private scanRunning: boolean = false;
 
 	constructor(private authHttp: AuthHttp, private dataService: DataService, private _ngZone: NgZone) { }
 
@@ -45,7 +45,7 @@ export class ScanComponent implements OnInit {
 		});
 	}
 
-	private toggleScan() {
+	public toggleScan() {
 		if (this.scanRunning) {
 			this.stop();
 		} else {
