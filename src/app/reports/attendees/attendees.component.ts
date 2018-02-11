@@ -17,10 +17,13 @@ export class AttendeesComponent implements OnInit {
   public dataGirlsBoys = [];
   public dataParticipants = [];
   public checkedinLastYear = 0;
-  public registeredLastYear = 0;
   public girlsLastYear = 0;
   public boysLastYear = 0;
   public eventsLastYear = 0;
+  public playgroundsLastYear = 0;
+  public coderDojosLastYear = 0;
+  public checkedinPlaygroundLastYear = 0;
+  public checkedinCoderDojoLastYear = 0;
   private countedEvents: any[] = [];
   showXAxis = true;
   showYAxis = true;
@@ -50,19 +53,22 @@ export class AttendeesComponent implements OnInit {
           var resultGirlsBoys = [];
           var resultParticipants = [];
           this.checkedinLastYear = 0;
-          this.registeredLastYear = 0;
           this.girlsLastYear = 0;
           this.boysLastYear = 0;
           this.eventsLastYear = 0;
           this.eventsLastYear = 0;
+          this.playgroundsLastYear = 0;
+          this.coderDojosLastYear = 0;
+          this.checkedinPlaygroundLastYear = 0;
+          this.checkedinCoderDojoLastYear = 0;
           this.countedEvents = [];
+          this.playgroundsLastYear = 0;
 
           data.forEach(item => {
             var date = new Date();
             if (item.eventDate <= date.toISOString()) {
               var year = date.getFullYear();
               if (item.eventDate > date.toISOString().replace(year.toString(), (year - 1).toString())) {
-                this.registeredLastYear += item.registered;
                 this.checkedinLastYear += item.checkedin;
                 if (item.gender == "f") {
                   this.girlsLastYear += item.checkedin;

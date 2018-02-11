@@ -214,17 +214,27 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
         'participant': {
           'givenName': this.newParticipantGivenName,
           'familyName': this.newParticipantFamilyName,
-          'yearOfBirth': this.newParticipantYearOfBirth
+          'yearOfBirth': this.newParticipantYearOfBirth,
+          'gender': this.newParticipantGender
         },
         'registered': false,
         'checkedin': true,
         'needsComputer': false
       };
 
+      if (this.newParticipantEmail) {
+        (<any>newParticipant.participant).email = this.newParticipantEmail;
+      }
+
       this.authHttp.post('https://participants-management-service.azurewebsites.net/api/events/' + this.selectedEvent + '/registrations', newParticipant).subscribe(
         data => {
           console.log(data);
-          (<any>$('#addParticipantDialog')).modal('hide');
+          
+          var audio = $("#fanfareAudio")[0];
+          audio.play();
+          this.loadParticipants();
+
+          this.closeAddParticipant();
         },
         error => {
           console.log(error);
@@ -233,7 +243,7 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  cancelAddParticipant() {
+  closeAddParticipant() {
     this.newParticipantEmail = '';
     this.newParticipantFamilyName = '';
     this.newParticipantGender = null;
