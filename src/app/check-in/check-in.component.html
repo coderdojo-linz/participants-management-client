@@ -14,28 +14,35 @@
         <div>{{registration.participant.givenName}}</div>
         <div>{{registration.participant.familyName}}</div>
         <div class="points">{{registration.totalNumberOfCheckins}}</div>
-        <div class="status" [class.checked-in]="registration.checkedin"><i [hidden]="!registration.checkedin" class="fa fa-check" aria-hidden="true"></i></div>
+        <div class="status" [class.checked-in]="registration.checkedin">
+          <i [hidden]="!registration.checkedin" class="fa fa-check" aria-hidden="true"></i>
+        </div>
       </div>
     </ng-template>
   </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid keyboard-bottom">
   <div class="row input-row">
-    <div class="col-sm-9">
+    <div class="col-sm-3">
       <div class="input">
         {{input}}
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <select class="form-control" [(ngModel)]="selectedEvent" (ngModelChange)="loadParticipants()">
-				<option *ngFor="let event of events" [value]="event._id">{{event.date | date}}<span *ngIf="event.type == 'playground'"> Playground</span></option>
-			</select>
+        <option *ngFor="let event of events" [value]="event._id">{{event.date | date}}
+          <span *ngIf="event.type == 'playground'"> Playground</span>
+        </option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <button mat-mini-fab (click)="addParticipant()">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
   </div>
-</div>
 
-<div class="container-fluid">
   <div class="keyboard-container">
     <div class="keyboard">
       <ng-template ngFor let-row [ngForOf]="keys" let-i="index">
@@ -53,8 +60,12 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"><small>CoderDojo Linz</small></h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+          <small>CoderDojo Linz</small>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" *ngIf="selectedRegistration">
         <div class="row">
@@ -79,7 +90,71 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-lg" data-dismiss="modal" (click)="cancelCheckin()">Abbrechen</button>
-        <button type="button" class="btn btn-info btn-lg check-in-button" data-dismiss="modal" (click)="confirmCheckin(selectedRegistration)"><b>Einchecken</b></button>
+        <button type="button" class="btn btn-info btn-lg check-in-button" data-dismiss="modal" (click)="confirmCheckin(selectedRegistration)">
+          <b>Einchecken</b>
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div id="addParticipantDialog" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <small>CoderDojo Linz</small>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>Neuer Teilnehmer</h1>
+            <form class="example-form">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Vorname" [(ngModel)]="newParticipantGivenName" name="newParticipantGivenName" id="newParticipantGivenName" required>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Nachname" [(ngModel)]="newParticipantFamilyName" name="newParticipantFamilyName" required>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Email-Adresse" [(ngModel)]="newParticipantEmail" name="newParticipantEmail">
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Mädchen / Junge" [(ngModel)]="newParticipantGender" name="newParticipantGender" required>
+                  <mat-option *ngFor="let gender of genders" [value]="gender.code">
+                    {{ gender.description }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Geburtsjahr" [(ngModel)]="newParticipantYearOfBirth" name="newParticipantYearOfBirth" required>
+                  <mat-option *ngFor="let yearOfBirth of yearsOfBirth" [value]="yearOfBirth">
+                    {{ yearOfBirth ? yearOfBirth.toString() : '' }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+          <!-- <div class="col-sm-4">
+            Vorname
+          </div>
+          <div class="col-sm-8">
+            <input id="givenName" />
+          </div> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg" data-dismiss="modal" (click)="cancelAddParticipant()">Abbrechen</button>
+        <button type="submit" class="btn btn-info btn-lg check-in-button" (click)="confirmAddParticipant()">
+          <b>Einchecken</b>
+        </button>
       </div>
     </div>
     <!-- /.modal-content -->

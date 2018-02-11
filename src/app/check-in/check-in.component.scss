@@ -7,6 +7,11 @@ audio {
     height: 0;
 }
 
+.keyboard-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
 .keyboard-container {
     width: 100vw;
     padding: 20px 15px;
@@ -75,8 +80,12 @@ audio {
         text-transform: uppercase;
     }
 
-    select {
+    select, button {
         margin-top: 20px;
+    }
+
+    button {
+        background-color: #FFC107!important;
     }
 }
 
@@ -231,4 +240,8 @@ audio {
 
 .check-in-button {
     padding: .75rem 5rem;
+}
+
+.full-width {
+    width: 100%;
 }

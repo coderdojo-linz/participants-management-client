@@ -31,3 +31,7 @@ $button-color: #00BCD4;
     background-color: $button-color;
     border-collapse: $button-color;
 }
+
+.cdk-overlay-container {
+    z-index: 1100;
+}

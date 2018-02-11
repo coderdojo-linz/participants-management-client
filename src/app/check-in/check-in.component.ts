@@ -22,13 +22,13 @@ declare var $: any;
       // transition('* => void', [
       //   animate(200, style({transform: 'translateX(100vw)'}))
       // ])
-      state('in', style({width: 'auto'})),
+      state('in', style({ width: 'auto' })),
       transition('void => *', [
-        style({width: '0'}),
+        style({ width: '0' }),
         animate(200)
       ]),
       transition('* => void', [
-        animate(200, style({width: '0'}))
+        animate(200, style({ width: '0' }))
       ])
     ])
   ]
@@ -41,8 +41,22 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   public filteredRegistrations: any[] = [];
   public keys: any[];
   public input: string = '';
+  public newParticipantGivenName: string = '';
+  public newParticipantFamilyName: string = '';
+  public newParticipantEmail: string = '';
+  public newParticipantGender: string = '';
+  public newParticipantYearOfBirth: number = null;
+  public genders: any[] = [{ code: 'f', description: 'Mädchen' }, { code: 'm', description: 'Junge' }];
+  public yearsOfBirth: number[] = [];
 
-  constructor(private authHttp: AuthHttp, private dataService: DataService) { }
+  constructor(private authHttp: AuthHttp, private dataService: DataService) {
+    var currentYear = (new Date()).getFullYear();
+    for (var i = currentYear - 4; i >= currentYear - 20; i--) {
+      this.yearsOfBirth.push(i);
+    }
+
+    this.yearsOfBirth.push(0);
+  }
 
   ngOnInit() {
     this.keys = [
@@ -59,11 +73,14 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
         this.selectedEvent = this.events.filter((event: CoderDojoEvent) => (new Date(event.date)).setHours(0, 0, 0, 0) >= (new Date()).setHours(0, 0, 0, 0))[0]._id;
         this.loadParticipants();
       });
+
+    $('#addParticipantDialog').on('shown.bs.modal', function () {
+      $('#newParticipantGivenName').focus();
+    });
   }
 
   ngAfterViewChecked() {
-    var height = screen.height - $('.keyboard-container').height() - 360;
-    console.log(height);
+    var height = screen.height - $('.keyboard-container').height() - 320;
     $('.participants-container').height(height);
   }
 
@@ -184,5 +201,45 @@ export class CheckInComponent implements OnInit, AfterViewChecked {
   cancelCheckin() {
     this.selectedRegistration = null;
     (<any>$('#welcomeDialog')).modal('hide');
+  }
+
+  addParticipant() {
+    var options = { backdrop: 'static' };
+    (<any>$('#addParticipantDialog')).modal(options);
+  }
+
+  confirmAddParticipant() {
+    if (this.newParticipantFamilyName && this.newParticipantGender && this.newParticipantGivenName && this.newParticipantYearOfBirth !== null) {
+      var newParticipant = {
+        'participant': {
+          'givenName': this.newParticipantGivenName,
+          'familyName': this.newParticipantFamilyName,
+          'yearOfBirth': this.newParticipantYearOfBirth
+        },
+        'registered': false,
+        'checkedin': true,
+        'needsComputer': false
+      };
+
+      this.authHttp.post('https://participants-management-service.azurewebsites.net/api/events/' + this.selectedEvent + '/registrations', newParticipant).subscribe(
+        data => {
+          console.log(data);
+          (<any>$('#addParticipantDialog')).modal('hide');
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  cancelAddParticipant() {
+    this.newParticipantEmail = '';
+    this.newParticipantFamilyName = '';
+    this.newParticipantGender = null;
+    this.newParticipantGivenName = '';
+    this.newParticipantYearOfBirth = null;
+
+    (<any>$('#addParticipantDialog')).modal('hide');
   }
 }
