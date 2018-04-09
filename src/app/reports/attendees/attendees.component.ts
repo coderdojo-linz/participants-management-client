@@ -117,6 +117,16 @@ export class AttendeesComponent implements OnInit {
             }
           });
 
+          resultGirlsBoys.forEach(event => {
+            if (!event.series.find(item => item.name == 'Girls')) {
+              event.series.push({ 'name': 'Girls', 'value': 0 });
+            }
+
+            if (!event.series.find(item => item.name == 'Boys')) {
+              event.series.push({ 'name': 'Boys', 'value': 0 });
+            }
+          });
+
           this.dataGirlsBoys = resultGirlsBoys;
           this.dataParticipants = resultParticipants;
         } else {
